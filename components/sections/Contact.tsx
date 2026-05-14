@@ -19,7 +19,7 @@ export function Contact() {
   const { setVariant, reset } = useCursor();
 
   return (
-    <section id="contact" className="relative px-6 py-32 md:px-10 md:py-48">
+    <section id="contact" className="relative px-6 pt-20 pb-32 md:px-10 md:pt-28 md:pb-48">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
