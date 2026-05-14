@@ -25,8 +25,10 @@ export function About() {
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             (01) - About
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-            Auckland, NZ
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)] text-right leading-relaxed">
+            Designed in Philippines,
+            <br />
+            Developed in New Zealand
           </span>
         </div>
 
@@ -85,8 +87,8 @@ export function About() {
               <div className="relative flex h-full w-full items-end p-6">
                 <div className="flex flex-col gap-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90">
                   <span>carl dela pena</span>
-                  <span>auckland, nz</span>
-                  <span className="text-white">2026</span>
+                  <span>Designed in Philippines</span>
+                  <span className="text-white">Developed in New Zealand</span>
                 </div>
               </div>
             </motion.div>
