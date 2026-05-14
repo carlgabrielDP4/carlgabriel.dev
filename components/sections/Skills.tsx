@@ -4,30 +4,27 @@ import { motion } from "motion/react";
 import { Marquee } from "@/components/motion/Marquee";
 
 const tools = [
-  "Figma",
   "React",
   "Next.js",
-  "TypeScript",
+  "Figma",
   "Tailwind",
+  "Framer",
   "Motion",
-  "GSAP",
   "Python",
+  "Java",
   "Flask",
-  "SQLAlchemy",
   "SAP Fiori",
-  "Tableau",
-  "Power BI",
   "Cursor",
-  "Azure",
+  "Claude Code",
 ];
 
 const services = [
-  "UI Engineering",
-  "Product Design",
-  "Design Systems",
-  "Motion Design",
-  "Prototyping",
-  "Data Viz",
+  "Technical Designer",
+  "Product Designer",
+  "UI/UX Designer",
+  "UI Design Engineer",
+  "Frontend Development",
+  "Technology Sales",
 ];
 
 export function Skills() {
@@ -76,10 +73,10 @@ export function Skills() {
         className="mt-16 grid grid-cols-2 gap-4 px-6 md:grid-cols-4 md:px-10"
       >
         {[
-          { k: "Design", v: "Figma, Framer, Wix" },
-          { k: "Frontend", v: "React, Next, TS" },
-          { k: "Backend", v: "Python, Flask, SQL" },
-          { k: "Data / Cloud", v: "Tableau, Power BI, Azure" },
+          { k: "Design", v: "Figma, Framer, SAP Fiori" },
+          { k: "Frontend", v: "React, Next, Tailwind" },
+          { k: "Backend", v: "Python, Java, Flask" },
+          { k: "AI", v: "Cursor, Claude Code · Azure AI Fundamentals certified" },
         ].map((b) => (
           <div key={b.k} className="border-t border-[var(--line)] pt-4">
             <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)]">
