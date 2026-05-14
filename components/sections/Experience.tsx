@@ -3,42 +3,68 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
-const experience = [
+type SubRole = {
+  label: string;
+  date?: string;
+  note: string;
+};
+
+type ExperienceItem = {
+  year: string;
+  role: string;
+  org: string;
+  note: string;
+  subRoles?: SubRole[];
+};
+
+const experience: ExperienceItem[] = [
   {
     year: "2026 - Now",
-    role: "Lead product UI",
+    role: "Lead UI/UX Designer",
     org: "WDCC · Linux User Group app",
-    note: "Best work right now: still shipping. Lead product UI across ~10 cross-functional people: I set visual direction in Figma, stay in constant sync with our clients (committee + members), and keep screens honest to what we mean to ship.",
+    note: "Direct UI/UX across a ~10-person cross-functional team, translating technical constraints from engineers into language designers, stakeholders, and clients all read the same way. Open to constructive feedback every review; the design gets sharper that way. Project still in progress.",
   },
   {
     year: "2024 - Now",
-    role: "Retail Associate · Nike WHQ alum",
-    org: "Nike · Auckland, NZ → Beaverton, OR",
-    note: "Running Certified in Auckland, turning shoe tech into language people actually hear. Nike also flew me NZ → WHQ in Beaverton, Oregon (Portland metro) as one of seven worldwide. They weren't buying highlight-reel goals; they bought how I tell a story on camera and how five countries in three months shows up in an edit. Football got me in the room, communication closed it.",
+    role: "Retail Associate",
+    org: "Nike · Auckland, NZ → Oregon, USA",
+    note: "Shop-floor work that doubles as stakeholder-empathy training, turning shoe tech into language a first-time runner actually hears, then doing it again at speed for the next customer.",
+    subRoles: [
+      {
+        label: "International Nike Ambassador",
+        date: "June 2026",
+        note: "1 of 7 picked globally for an all-expenses Nike trip from Auckland, NZ to Oregon, USA (Nike World Headquarters in Beaverton). Selected for storytelling on camera and travel content rather than raw football skill. Football opened the door; communication closed it.",
+      },
+      {
+        label: "Nike Running Certified Athlete",
+        date: "March 2026",
+        note: "Delivered in-store presentations on technical product lines and trained teammates on Nike running tech so the floor speaks the same language to every customer.",
+      },
+    ],
   },
   {
     year: "2025",
     role: "Frontend Developer",
     org: "WDCC · Formula SAE47",
-    note: "Public site for a 10k+ follower club with a layout refresh, MFA clarity, and an RBAC bug fix so the right people see the right screens.",
-  },
-  {
-    year: "2025",
-    role: "Full-Stack Developer",
-    org: "PodBay · UoA",
-    note: "Flask + SQLAlchemy podcast library, team of three, design, frontend, and PyTest where it mattered.",
+    note: "Built and maintained an internal jobs board for a 10k+ follower motorsport club, connecting current students with alumni and university sponsors for networking and recruitment. Shipped the React frontend and an MFA flow that read clearly for students juggling multiple logins; tightened UI specs (states, variants, labels) so peer review stopped looping on clarification.",
   },
   {
     year: "2024",
     role: "UI/UX Designer",
     org: "SAP × PwC selection event",
-    note: "1 of 30 for a public transport concept on SAP Fiori, presented to directors. Fast critique, faster iteration.",
+    note: "Week-long case competition organised and mentored by PwC and SAP directors and associates. 1 of 30 candidates selected to lead UX on a public transport concept built in SAP Fiori, then presented and pitched the final product directly to PwC directors. Fast critique, faster iteration.",
   },
   {
     year: "2023",
-    role: "Design clicked",
-    org: "University of Auckland",
-    note: "Supposed to be Java. Was sketching Auckland Transport instead. Tech is the tool; humans are the focus.",
+    role: "Sales Consultant",
+    org: "Tafoya & Associates · Direct marketing",
+    note: "Door-to-door direct sales for a marketing firm. Sharpened adaptability across radically different customer types in minutes-long conversations, built objection-handling chops, and pulled live sales data into the next pitch. Measurable lift on the close rate when the deck adapted to who actually answered the door.",
+  },
+  {
+    year: "2020 - 2022",
+    role: "Retail Assistant",
+    org: "Circle K · Auckland, NZ",
+    note: "Worked the floor through high school and the COVID lockdowns, balancing NCEA study with keeping a retail store running under the kind of operational uncertainty no rulebook covered. First job that taught me customer service is mostly listening, even when nobody else is.",
   },
 ];
 
@@ -52,7 +78,7 @@ export function Experience() {
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-            (02) - Experience
+            (07) — Experience
           </span>
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             highlights first
@@ -91,6 +117,26 @@ export function Experience() {
                     {e.org}
                   </div>
                   <p className="mt-4 max-w-lg text-[var(--fg-muted)]">{e.note}</p>
+
+                  {e.subRoles && e.subRoles.length > 0 ? (
+                    <ul className="mt-6 flex max-w-lg flex-col gap-4 border-l border-[var(--line)] pl-5">
+                      {e.subRoles.map((sr, si) => (
+                        <li key={si}>
+                          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
+                              {sr.label}
+                            </span>
+                            {sr.date ? (
+                              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--fg-muted)]">
+                                · {sr.date}
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className="mt-1.5 text-sm text-[var(--fg-muted)]">{sr.note}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
               </motion.div>
             ))}
