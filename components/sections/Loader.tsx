@@ -16,7 +16,7 @@ export function Loader({ onComplete }: { onComplete?: () => void }) {
     }
 
     const start = performance.now();
-    const duration = 500;
+    const duration = 1200;
     let raf = 0;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
@@ -38,20 +38,32 @@ export function Loader({ onComplete }: { onComplete?: () => void }) {
       {!done && (
         <motion.div
           key="loader"
-          className="fixed inset-0 z-[200] flex items-end justify-between p-8 md:p-14"
+          className="fixed inset-0 z-[200] flex flex-col justify-between p-8 md:p-14"
           style={{ background: "var(--bg)" }}
           initial={{ y: 0 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 0.6, ease: [0.85, 0, 0.15, 1] }}
         >
-          <div className="font-display text-[24vw] leading-[0.85] tracking-tighter text-[var(--fg)] select-none">
-            <Digits value={count} />
+          <div className="flex items-start justify-between gap-6">
+            <div className="font-display text-[14vw] leading-[0.85] tracking-tighter text-[var(--fg)] select-none">
+              <Digits value={count} />
+            </div>
+            <div className="hidden md:flex flex-col items-end gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)]">
+              <span>Carl Dela Pena</span>
+              <span>Portfolio v.01</span>
+              <span className="text-[var(--accent)]">Loading {count}%</span>
+            </div>
           </div>
-          <div className="hidden md:flex flex-col items-end gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)]">
-            <span>Carl Dela Pena</span>
-            <span>Portfolio v.01</span>
-            <span className="text-[var(--accent)]">Loading {count}%</span>
-          </div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display text-[clamp(2.5rem,9vw,8.5rem)] leading-[0.95] tracking-tight text-[var(--fg)] max-w-[22ch]"
+          >
+            Greatness takes time,
+            <span className="block italic text-[var(--accent)]">please wait</span>
+          </motion.h2>
         </motion.div>
       )}
     </AnimatePresence>
