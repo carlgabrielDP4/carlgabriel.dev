@@ -12,7 +12,7 @@ export function Work() {
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-            (04) - Selected work
+            (04) - Projects
           </span>
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             {projects.length} projects · 2024 → 2026
