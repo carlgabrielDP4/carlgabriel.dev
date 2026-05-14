@@ -31,7 +31,7 @@ type FactTile = {
 };
 
 const factTiles: FactTile[] = [
-  { k: "Countries", v: "09 visited" },
+  { k: "Countries", v: "9 visited" },
   { k: "5K pace", v: "4:12/km" },
   { k: "Football", v: "Left wing", image: "/images/football/football-field-action-shot.jpeg" },
   { k: "Highest hike", v: "Fansipan · 3,143m" },
@@ -47,7 +47,7 @@ export function Interests() {
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-            (05) - Off the clock
+            (05) - My Interests
           </span>
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             Places I&apos;ve touched grass at
@@ -58,6 +58,13 @@ export function Interests() {
           as="h2"
           stagger={0.05}
           className="font-display text-[clamp(2.5rem,8vw,7rem)] font-medium leading-[0.95] tracking-tight text-balance"
+          text="My Interests"
+        />
+        <TextReveal
+          as="h2"
+          delay={0.2}
+          stagger={0.05}
+          className="font-display italic text-[clamp(2.5rem,8vw,7rem)] font-medium leading-[0.95] tracking-tight text-[var(--accent)] text-balance"
           text="Where the cursor can't follow."
         />
 

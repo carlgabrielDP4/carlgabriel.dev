@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export function Footer() {
@@ -24,21 +23,9 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="relative border-t border-[var(--line)] px-6 pb-10 pt-20 md:px-10">
+    <footer className="relative border-t border-[var(--line)] px-6 pb-10 pt-12 md:px-10">
       <div className="mx-auto max-w-[1400px]">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9 }}
-          className="overflow-hidden"
-        >
-          <div className="font-display text-[clamp(2.5rem,11vw,11rem)] font-medium leading-[0.88] tracking-tight text-[var(--fg)] opacity-90">
-            Carl <span className="italic text-[var(--accent)]">Dela Pena</span>
-          </div>
-        </motion.div>
-
-        <div className="mt-10 grid grid-cols-2 gap-6 border-t border-[var(--line)] pt-8 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--fg-muted)] md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--fg-muted)] md:grid-cols-4">
           <div>
             <div className="mb-1 text-[var(--fg)]">Local time</div>
             <div className="tabular-nums">{time || "--"} NZST</div>
