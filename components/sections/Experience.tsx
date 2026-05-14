@@ -77,10 +77,10 @@ export function Experience() {
     <section id="experience" className="relative px-6 py-32 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-            (07) — Experience
+          <span className="font-mono text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+            (02) - Experience
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+          <span className="font-mono text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             highlights first
           </span>
         </div>
@@ -106,33 +106,37 @@ export function Experience() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="grid grid-cols-1 gap-6 md:grid-cols-3"
               >
-                <div className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--accent)]">
+                <div className="font-mono text-sm uppercase tracking-[0.25em] text-[var(--accent)] md:text-base">
                   {e.year}
                 </div>
                 <div className="md:col-span-2">
                   <h3 className="font-display text-3xl font-medium tracking-tight md:text-5xl">
                     {e.role}
                   </h3>
-                  <div className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)]">
+                  <div className="mt-3 font-mono text-sm uppercase tracking-[0.2em] text-[var(--fg-muted)]">
                     {e.org}
                   </div>
-                  <p className="mt-4 max-w-lg text-[var(--fg-muted)]">{e.note}</p>
+                  <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--fg-muted)] md:text-lg">
+                    {e.note}
+                  </p>
 
                   {e.subRoles && e.subRoles.length > 0 ? (
-                    <ul className="mt-6 flex max-w-lg flex-col gap-4 border-l border-[var(--line)] pl-5">
+                    <ul className="mt-7 flex max-w-xl flex-col gap-5 border-l border-[var(--line)] pl-5">
                       {e.subRoles.map((sr, si) => (
                         <li key={si}>
                           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
+                            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--accent)]">
                               {sr.label}
                             </span>
                             {sr.date ? (
-                              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--fg-muted)]">
+                              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--fg-muted)]">
                                 · {sr.date}
                               </span>
                             ) : null}
                           </div>
-                          <p className="mt-1.5 text-sm text-[var(--fg-muted)]">{sr.note}</p>
+                          <p className="mt-2 text-base leading-relaxed text-[var(--fg-muted)]">
+                            {sr.note}
+                          </p>
                         </li>
                       ))}
                     </ul>
