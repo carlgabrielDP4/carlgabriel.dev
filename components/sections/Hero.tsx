@@ -83,7 +83,7 @@ export function Hero() {
               }}
             >
               <textPath href="#hero-portrait-arc" startOffset="0%">
-                Graduate · Computer Science + Information Technology Management · University of Auckland · Aspiring Technical Design Engineer · Product Designer · 
+                Computer Science + I.T Management · University of Auckland · UI/UX Product Design · 
               </textPath>
             </text>
           </motion.svg>
@@ -139,7 +139,7 @@ export function Hero() {
           <h1 className="font-display text-[clamp(4.5rem,15vw,15rem)] font-medium leading-[0.85] tracking-[-0.03em] md:max-w-[68%] lg:max-w-[64%]">
             <SplitLine delay={0.1}>Carl</SplitLine>
             <SplitLine delay={0.2} className="italic text-[var(--fg-muted)]">
-              Dela <span className="text-[var(--accent)] not-italic">Pena</span>
+              Dela Pena
             </SplitLine>
           </h1>
         </div>
