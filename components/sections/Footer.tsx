@@ -33,8 +33,8 @@ export function Footer() {
           transition={{ duration: 0.9 }}
           className="overflow-hidden"
         >
-          <div className="font-display text-[clamp(4rem,18vw,18rem)] font-medium leading-[0.85] tracking-tighter text-[var(--fg)] opacity-90">
-            CARL
+          <div className="font-display text-[clamp(2.5rem,11vw,11rem)] font-medium leading-[0.88] tracking-tight text-[var(--fg)] opacity-90">
+            Carl <span className="italic text-[var(--accent)]">Dela Pena</span>
           </div>
         </motion.div>
 
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
           <div>
             <div className="mb-1 text-[var(--fg)]">Built with</div>
-            <div>Next · Motion · GSAP · GLSL</div>
+            <div>Next · Motion · GLSL</div>
           </div>
           <div>
             <div className="mb-1 text-[var(--fg)]">Currently</div>

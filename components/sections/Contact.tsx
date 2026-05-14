@@ -33,15 +33,15 @@ export function Contact() {
         <TextReveal
           as="h2"
           stagger={0.06}
-          className="font-display text-[clamp(3rem,12vw,12rem)] font-medium leading-[0.88] tracking-tight"
-          text="Let's make"
+          className="font-display text-[clamp(2.5rem,10vw,10rem)] font-medium leading-[0.9] tracking-tight"
+          text="Let me make you"
         />
         <TextReveal
           as="h2"
           delay={0.2}
           stagger={0.06}
-          className="font-display italic text-[clamp(3rem,12vw,12rem)] font-medium leading-[0.88] tracking-tight text-[var(--accent)]"
-          text="something good."
+          className="font-display italic text-[clamp(2.5rem,10vw,10rem)] font-medium leading-[0.9] tracking-tight text-[var(--accent)]"
+          text="something cool!"
         />
 
         <div className="mt-16 flex flex-col items-start gap-12 md:flex-row md:items-end md:justify-between">
