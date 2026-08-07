@@ -1,4 +1,4 @@
-# Carl Dela Pena — Portfolio
+# Carl Dela Pena · Portfolio
 
 Personal portfolio for Carl Dela Pena. UI/UX designer and frontend engineer, final-year CS + IT student at the University of Auckland. Motion-led, dark-by-default, with a violet accent and a focus on real case studies.
 
@@ -69,13 +69,13 @@ public/images/
 Anything in `public/` is served at `/images/...` automatically. Recommended: ~1600px wide, JPEG/WebP, ~85% quality. Compress with [tinypng.com](https://tinypng.com) before committing.
 
 When images are ready, wire them into:
-- `About.tsx` — sticky portrait card (currently gradient placeholder)
-- `Interests.tsx` — each `travelClips[]` entry can swap the gradient for a `next/image`
-- Case study pages — `CaseStudy.tsx` has three placeholder figure slots
+- `About.tsx`: sticky portrait card (currently gradient placeholder)
+- `Interests.tsx`: each `travelClips[]` entry can swap the gradient for a `next/image`
+- Case study pages: `CaseStudy.tsx` has three placeholder figure slots
 
 ## Accessibility & performance
 
-- `prefers-reduced-motion` respected — loader skips, Lenis disables, animations soften.
+- `prefers-reduced-motion` respected; loader skips, Lenis disables, animations soften.
 - Custom cursor hidden on touch devices.
 - WebGL canvas capped at `dpr={[1, 1.5]}`.
 - Shader is `next/dynamic({ ssr: false })` to keep the server bundle clean.

@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
 import { TextReveal } from "@/components/motion/TextReveal";
+import { VISITED_PLACES } from "@/content/visitedCountries";
 
 type TravelClip = {
   place: string;
@@ -31,7 +32,7 @@ type FactTile = {
 };
 
 const factTiles: FactTile[] = [
-  { k: "Countries", v: "9 visited" },
+  { k: "Countries", v: `${VISITED_PLACES.length} visited` },
   { k: "5K pace", v: "4:12/km" },
   { k: "Football", v: "Left wing", image: "/images/football/football-field-action-shot.jpeg" },
   { k: "Highest hike", v: "Fansipan · 3,143m" },

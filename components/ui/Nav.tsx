@@ -7,10 +7,10 @@ import { useTheme } from "@/lib/theme-provider";
 import { useCursor } from "@/lib/cursor-provider";
 
 const links = [
-  { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
-  { label: "Hobbies", href: "/hobbies" },
+  { label: "Work", href: "/#work" },
   { label: "Contact", href: "/#contact" },
+  { label: "More", href: "/hobbies" },
 ];
 
 export function Nav() {
@@ -44,7 +44,7 @@ export function Nav() {
           href="/"
           onPointerEnter={() => setVariant("hover")}
           onPointerLeave={reset}
-          className="font-display text-xl font-medium tracking-tight"
+          className="font-display text-2xl font-medium tracking-tight md:text-3xl"
         >
           carl<span className="text-[var(--accent)]">.</span>
         </Link>

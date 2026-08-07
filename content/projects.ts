@@ -17,7 +17,7 @@ export const projects: Project[] = [
     slug: "linux-user-group",
     index: "001",
     title: "Linux User Group",
-    tagline: "Lead UI/UX on our club app — cross-functional team of ~10, project still in progress.",
+    tagline: "Lead UI/UX on our club app, cross-functional team of ~10, project still in progress.",
     role: "Lead UI/UX Designer",
     year: "2026",
     tags: ["Figma", "Product", "Stakeholders"],
