@@ -7,9 +7,14 @@ import type { FeatureCollection } from "geojson";
 import type { GeometryCollection, Topology } from "topojson-specification";
 import { motion } from "motion/react";
 import {
+  getPendingIsoForFeatureId,
   getVisitedIsoForFeatureId,
+  PENDING_PLACES,
   VISITED_PLACES,
 } from "@/content/visitedCountries";
+
+const CONQUERED_COLOR = "#22c55e";
+const PENDING_COLOR = "#eab308";
 
 const TOPO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
 
@@ -61,10 +66,12 @@ export function TravelMap() {
     const path = geoPath(projection);
     return geojson.features.map((f, i) => {
       const iso = getVisitedIsoForFeatureId(f.id);
+      const pendingIso = getPendingIsoForFeatureId(f.id);
       const name = (f.properties as { name?: string } | null)?.name ?? "";
       return {
         d: path(f) ?? "",
         visited: iso !== null,
+        pending: pendingIso !== null,
         name,
         key: `${f.id ?? "geo"}-${i}`,
       };
@@ -87,8 +94,27 @@ export function TravelMap() {
         </div>
 
         <p className="max-w-xl text-pretty text-[var(--fg-muted)]">
-          A simple atlas view. Purple = been there. Antarctica omitted, for now.
+          SIDEQUEST OR MAIN QUEST ???
         </p>
+
+        <div className="mt-4 flex flex-wrap gap-6">
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)]">
+            <span
+              className="inline-block h-3 w-3 rounded-sm"
+              style={{ backgroundColor: CONQUERED_COLOR }}
+              aria-hidden
+            />
+            Conquered
+          </div>
+          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)]">
+            <span
+              className="inline-block h-3 w-3 rounded-sm"
+              style={{ backgroundColor: PENDING_COLOR }}
+              aria-hidden
+            />
+            Pending
+          </div>
+        </div>
 
         <div
           className="relative mt-10 overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--bg-soft)]/40"
@@ -112,38 +138,46 @@ export function TravelMap() {
                 aria-label="World map highlighting countries visited"
               >
                 <title>Visited countries</title>
-                {paths.map(({ d, visited, name, key }) => (
-                  <path
-                    key={key}
-                    d={d}
-                    vectorEffect="non-scaling-stroke"
-                    stroke="currentColor"
-                    strokeWidth={0.35}
-                    fill={visited ? "var(--accent)" : "var(--bg-soft)"}
-                    fillOpacity={visited ? 0.6 : 1}
-                    onMouseEnter={(e) =>
-                      setHover({ name, clientX: e.clientX, clientY: e.clientY })
-                    }
-                    onMouseMove={(e) =>
-                      setHover((prev) =>
-                        prev && prev.name === name
-                          ? { name, clientX: e.clientX, clientY: e.clientY }
-                          : { name, clientX: e.clientX, clientY: e.clientY },
-                      )
-                    }
-                    className={`transition-[fill-opacity] duration-200 ${
-                      visited ? "hover:fill-opacity-90" : ""
-                    } cursor-default`}
-                    style={
-                      hover?.name === name
-                        ? {
-                            fillOpacity: visited ? 0.9 : 1,
-                            filter: visited ? "brightness(1.15)" : undefined,
-                          }
-                        : undefined
-                    }
-                  />
-                ))}
+                {paths.map(({ d, visited, pending, name, key }) => {
+                  const highlighted = visited || pending;
+                  const fill = visited
+                    ? CONQUERED_COLOR
+                    : pending
+                      ? PENDING_COLOR
+                      : "var(--bg-soft)";
+                  return (
+                    <path
+                      key={key}
+                      d={d}
+                      vectorEffect="non-scaling-stroke"
+                      stroke="currentColor"
+                      strokeWidth={0.35}
+                      fill={fill}
+                      fillOpacity={highlighted ? 0.6 : 1}
+                      onMouseEnter={(e) =>
+                        setHover({ name, clientX: e.clientX, clientY: e.clientY })
+                      }
+                      onMouseMove={(e) =>
+                        setHover((prev) =>
+                          prev && prev.name === name
+                            ? { name, clientX: e.clientX, clientY: e.clientY }
+                            : { name, clientX: e.clientX, clientY: e.clientY },
+                        )
+                      }
+                      className={`transition-[fill-opacity] duration-200 ${
+                        highlighted ? "hover:fill-opacity-90" : ""
+                      } cursor-default`}
+                      style={
+                        hover?.name === name
+                          ? {
+                              fillOpacity: highlighted ? 0.9 : 1,
+                              filter: highlighted ? "brightness(1.15)" : undefined,
+                            }
+                          : undefined
+                      }
+                    />
+                  );
+                })}
               </motion.svg>
 
               <Tooltip hover={hover} />
@@ -157,7 +191,20 @@ export function TravelMap() {
               key={iso}
               className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)]"
             >
-              <span className="text-[var(--accent)]">{iso}</span>
+              <span style={{ color: CONQUERED_COLOR }}>{iso}</span>
+              <span className="mx-2 text-[var(--line)]">·</span>
+              {label}
+            </li>
+          ))}
+        </ul>
+
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {PENDING_PLACES.map(({ iso, label }) => (
+            <li
+              key={iso}
+              className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)]"
+            >
+              <span style={{ color: PENDING_COLOR }}>{iso}</span>
               <span className="mx-2 text-[var(--line)]">·</span>
               {label}
             </li>
