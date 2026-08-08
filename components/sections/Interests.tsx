@@ -15,10 +15,10 @@ type TravelClip = {
 };
 
 const travelClips: TravelClip[] = [
-  { place: "Singapore, SG", caption: "Street walks", hue: "#84cc16", image: "/images/travel/singapore-pose.png" },
+  { place: "Oregon, USA", caption: "international athlete?", hue: "#22c55e", image: "/images/travel/carlKiss_untitled.png" },
   { place: "Tokyo, JP", caption: "Temple runs", hue: "#a855f7", image: "/images/travel/tokyo-umbrella-pose.png" },
   { place: "Tokyo, JP", caption: "Mandatory vending flick", hue: "#6366f1", image: "/images/travel/vending-machine.png" },
-  { place: "Auckland, NZ", caption: "Aurafarming", hue: "#22c55e", image: "/images/football/football-field-action-shot.jpeg", focus: { scale: 1.5, origin: "50% 72%" } },
+  { place: "Oregon, USA", caption: "trailblazer", hue: "#84cc16", image: "/images/travel/carlPDXpoint.png" },
   { place: "Osaka, JP", caption: "Glico man", hue: "#ec4899", image: "/images/travel/me-and-glicoman.png" },
   { place: "Osaka, JP", caption: "Night markets", hue: "#f97316", image: "/images/travel/osaka-aurafarm.png" },
   { place: "Top of Indochina", caption: "Peak entertainment", hue: "#22d3ee", image: "/images/travel/fansipan-summit.png" },
@@ -41,7 +41,7 @@ const factTiles: FactTile[] = [
 export function Interests() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const carouselX = useTransform(scrollYProgress, [0, 1], ["10%", "-40%"]);
+  const carouselX = useTransform(scrollYProgress, [0, 1], ["20%", "-40%"]);
 
   return (
     <section id="interests" className="relative px-6 pt-32 pb-20 md:px-10 md:pt-48 md:pb-28">
