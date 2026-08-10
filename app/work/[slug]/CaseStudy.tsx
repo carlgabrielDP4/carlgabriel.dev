@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ImagePlus } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { useCursor } from "@/lib/cursor-provider";
 import { Footer } from "@/components/sections/Footer";
+import { cn } from "@/lib/cn";
 
 export function CaseStudy({ project, next }: { project: Project; next: Project }) {
   const { setVariant, reset } = useCursor();
@@ -74,7 +75,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
               <Meta k="Role" v={project.role} />
               <Meta k="Year" v={project.year} />
               <Meta k="Tags" v={project.tags.slice(0, 2).join(", ")} />
-              <Meta k="Status" v="Shipped" />
+              <Meta k="Status" v={project.status} />
             </motion.div>
           </div>
         </div>
@@ -85,12 +86,20 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
             01 - Problem
           </span>
-          <TextReveal
-            as="h2"
-            stagger={0.04}
-            className="mt-6 font-display text-[clamp(2rem,5vw,4.5rem)] font-medium leading-[1.05] tracking-tight text-balance"
-            text={project.problem}
-          />
+          <div className="mt-6 max-w-3xl space-y-5">
+            {project.problem
+              .split(/(?<=[.!?])\s+/)
+              .filter(Boolean)
+              .map((sentence, i) => (
+                <TextReveal
+                  key={i}
+                  as="p"
+                  stagger={0.02}
+                  className="font-sans text-[clamp(1.15rem,2.2vw,1.6rem)] font-normal leading-[1.4] tracking-tight text-[var(--fg)]"
+                  text={sentence}
+                />
+              ))}
+          </div>
         </div>
       </section>
 
@@ -133,36 +142,9 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
       <section className="relative px-6 pb-32 md:px-10 md:pb-48">
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
-            <div
-              className="aspect-[4/3] w-full overflow-hidden rounded-md md:col-span-7"
-              style={{ background: `linear-gradient(140deg, ${project.cover.from}, ${project.cover.to})` }}
-            >
-              <div className="flex h-full w-full items-end p-8 text-white">
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-90">
-                    fig 01 - final UI
-                  </div>
-                  <div className="mt-2 font-display text-2xl tracking-tight">{project.title}</div>
-                </div>
-              </div>
-            </div>
-            <div className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[var(--bg-soft)] md:col-span-5">
-              <div className="flex h-full w-full flex-col justify-between p-8">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)]">
-                  fig 02 - wireframe set
-                </span>
-                <div className="grid grid-cols-3 gap-2">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="aspect-[3/5] rounded-sm border border-[var(--line)] bg-[var(--bg)]" />
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="aspect-[16/9] w-full overflow-hidden rounded-md bg-[var(--bg-soft)] md:col-span-12">
-              <div className="flex h-full w-full items-center justify-center font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
-                fig 03 - system overview · replace with real screenshot
-              </div>
-            </div>
+            <AssetPlaceholder label="fig 01 — final UI" className="aspect-[4/3] md:col-span-7" />
+            <AssetPlaceholder label="fig 02 — wireframe set" className="aspect-[4/3] md:col-span-5" />
+            <AssetPlaceholder label="fig 03 — system overview" className="aspect-[16/9] md:col-span-12" />
           </div>
         </div>
       </section>
@@ -220,6 +202,23 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
 
       <Footer />
     </main>
+  );
+}
+
+function AssetPlaceholder({ label, className }: { label: string; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-md border border-dashed border-[var(--line)] bg-[var(--bg-soft)] p-8 text-center",
+        className
+      )}
+    >
+      <ImagePlus className="h-5 w-5 text-[var(--fg-muted)]" strokeWidth={1.5} />
+      <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)]">{label}</div>
+      <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)]/60">
+        Design asset coming soon
+      </div>
+    </div>
   );
 }
 

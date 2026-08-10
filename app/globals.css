@@ -30,18 +30,47 @@
   --accent: #a855f7;
   --accent-soft: #7c3aed;
   --accent-glow: #c084fc;
+  /* Text colour that sits on top of --accent */
+  --accent-contrast: #0a0a0c;
+  --grain-blend: overlay;
+  --grain-opacity: 0.12;
 }
 
 :root.light {
   color-scheme: light;
-  --bg: #f5f3ee;
-  --bg-soft: #ebe8e0;
-  --fg: #0a0a0c;
-  --fg-muted: #5a5a63;
-  --line: #d9d6cf;
-  --accent: #7c3aed;
-  --accent-soft: #6d28d9;
-  --accent-glow: #a855f7;
+  --bg: #f6f4ef;
+  --bg-soft: #e7e3d9;
+  --fg: #0d0d11;
+  --fg-muted: #44444e;
+  --line: #c7c3b8;
+  --accent: #6d28d9;
+  --accent-soft: #5b21b6;
+  --accent-glow: #7c3aed;
+  --accent-contrast: #ffffff;
+  /* Overlay lightens on a light ground and washes text out — multiply keeps it as texture. */
+  --grain-blend: multiply;
+  --grain-opacity: 0.05;
+}
+
+/*
+ * Applied to <html> only for the duration of a theme toggle, so the colour
+ * swap eases instead of snapping. It is removed afterwards to keep it from
+ * fighting per-element hover transitions.
+ */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 500ms var(--ease-in-out-cubic),
+    background-image 500ms var(--ease-in-out-cubic),
+    border-color 500ms var(--ease-in-out-cubic),
+    color 500ms var(--ease-in-out-cubic),
+    fill 500ms var(--ease-in-out-cubic),
+    stroke 500ms var(--ease-in-out-cubic),
+    box-shadow 500ms var(--ease-in-out-cubic),
+    opacity 500ms var(--ease-in-out-cubic) !important;
+  transition-delay: 0ms !important;
 }
 
 * {
@@ -120,8 +149,8 @@ a, button {
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  mix-blend-mode: overlay;
-  opacity: 0.12;
+  mix-blend-mode: var(--grain-blend);
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.8 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 180px 180px;
 }

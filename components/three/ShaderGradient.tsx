@@ -3,6 +3,29 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useTheme } from "@/lib/theme-provider";
+
+/**
+ * The light palette is deliberately pale: near-black hero type sits directly on
+ * top of this gradient, so the blobs have to stay high-luminance to keep it
+ * readable. Vignette strength is per-theme for the same reason.
+ */
+const PALETTES = {
+  dark: {
+    a: "#a855f7",
+    b: "#7c3aed",
+    c: "#ec4899",
+    bg: "#15101f",
+    vignette: 0.82,
+  },
+  light: {
+    a: "#dcc9fb",
+    b: "#c9b4f6",
+    c: "#f8cde3",
+    bg: "#f3eefa",
+    vignette: 0.94,
+  },
+} as const;
 
 const vertex = /* glsl */ `
   varying vec2 vUv;
@@ -24,6 +47,7 @@ const fragment = /* glsl */ `
   uniform vec3  uColorB;
   uniform vec3  uColorC;
   uniform vec3  uBg;
+  uniform float uVignette;
 
   // 2D simplex noise (Ashima)
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -83,7 +107,7 @@ const fragment = /* glsl */ `
 
     // Very gentle vignette keeps edges readable without creating black bars.
     float vig = smoothstep(1.35, 0.55, distance(uv, vec2(0.5)));
-    col *= mix(0.82, 1.0, vig);
+    col *= mix(uVignette, 1.0, vig);
 
     // film grain
     float grain = fract(sin(dot(uv * 1000.0 + t, vec2(12.9898,78.233))) * 43758.5453);
@@ -93,26 +117,51 @@ const fragment = /* glsl */ `
   }
 `;
 
-function Mesh() {
+function Mesh({ theme }: { theme: "dark" | "light" }) {
   const ref = useRef<THREE.ShaderMaterial>(null);
   const mouse = useRef(new THREE.Vector2(0, 0));
 
-  const uniforms = useMemo(
-    () => ({
+  const uniforms = useMemo(() => {
+    const p = PALETTES[theme];
+    return {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0, 0) },
       uResolution: { value: new THREE.Vector2(1, 1) },
-      uColorA: { value: new THREE.Color("#a855f7") },
-      uColorB: { value: new THREE.Color("#7c3aed") },
-      uColorC: { value: new THREE.Color("#ec4899") },
-      uBg: { value: new THREE.Color("#15101f") },
+      uColorA: { value: new THREE.Color(p.a) },
+      uColorB: { value: new THREE.Color(p.b) },
+      uColorC: { value: new THREE.Color(p.c) },
+      uBg: { value: new THREE.Color(p.bg) },
+      uVignette: { value: p.vignette },
+    };
+    // Built once; theme changes are eased in useFrame instead.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const target = useMemo(
+    () => ({
+      a: new THREE.Color(),
+      b: new THREE.Color(),
+      c: new THREE.Color(),
+      bg: new THREE.Color(),
     }),
     []
   );
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!ref.current) return;
     ref.current.uniforms.uTime.value = state.clock.elapsedTime;
+
+    // Ease toward the active palette so toggling theme dissolves the gradient
+    // rather than cutting to it. Frame-rate independent lerp factor.
+    const p = PALETTES[theme];
+    const u = ref.current.uniforms;
+    const k = 1 - Math.pow(0.005, Math.min(delta, 0.1));
+    u.uColorA.value.lerp(target.a.set(p.a), k);
+    u.uColorB.value.lerp(target.b.set(p.b), k);
+    u.uColorC.value.lerp(target.c.set(p.c), k);
+    u.uBg.value.lerp(target.bg.set(p.bg), k);
+    u.uVignette.value += (p.vignette - u.uVignette.value) * k;
+
     const targetX = (state.pointer.x ?? 0);
     const targetY = (state.pointer.y ?? 0);
     mouse.current.x += (targetX - mouse.current.x) * 0.04;
@@ -136,6 +185,8 @@ function Mesh() {
 }
 
 export function ShaderGradient({ className }: { className?: string }) {
+  const { theme } = useTheme();
+
   return (
     <div className={className} aria-hidden>
       <Canvas
@@ -143,7 +194,7 @@ export function ShaderGradient({ className }: { className?: string }) {
         gl={{ antialias: false, alpha: false, powerPreference: "high-performance" }}
         camera={{ position: [0, 0, 1] }}
       >
-        <Mesh />
+        <Mesh theme={theme} />
       </Canvas>
     </div>
   );
