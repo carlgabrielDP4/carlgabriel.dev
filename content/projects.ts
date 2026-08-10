@@ -7,6 +7,7 @@ export type Project = {
   year: string;
   tags: string[];
   cover: { hue: string; from: string; to: string };
+  status: string;
   problem: string;
   process: string[];
   outcome: { label: string; value: string }[];
@@ -14,14 +15,40 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "linux-user-group",
+    slug: "courtsafe-ai",
     index: "001",
+    title: "CourtSafe AI",
+    tagline: "Legal document verification tool for a practising lawyer client, my final year capstone.",
+    role: "Lead Product Designer & UX Lead",
+    year: "2026",
+    tags: ["AI", "RAG", "Legal Tech", "Product Design"],
+    cover: { hue: "emerald", from: "#10b981", to: "#052e16" },
+    status: "In progress",
+    problem:
+      "Lawyers using AI have been sanctioned in court for filing briefs with citations that don't exist. CourtSafe is a capstone built for a practising lawyer client, catching hallucinated citations, misquotes, and timeline inconsistencies before a draft is filed, without ever overriding the lawyer's judgment.",
+    process: [
+      "Owned end-to-end UX, from information architecture to interaction patterns, then implemented the design system in code so what shipped stayed close to what was designed.",
+      "Designed a Risk Dashboard and a side-by-side mismatch comparison so reviewing a draft means checking six flagged issues, not re-reading the whole document.",
+      "Built every AI output around four honest states, Verified, Not Found, Mismatch, Needs Review, always showing the source passage rather than a bare confidence score.",
+      "Scoped deliberately with a six-person team: shipped citation verification, chronology, and review workflow, and designed around future features instead of building them in shallow.",
+    ],
+    outcome: [
+      { label: "Team", value: "6" },
+      { label: "Role", value: "Lead UX" },
+      { label: "Design time", value: "65%" },
+      { label: "Status", value: "Capstone" },
+    ],
+  },
+  {
+    slug: "linux-user-group",
+    index: "002",
     title: "Linux User Group",
     tagline: "Lead UI/UX on our club app, cross-functional team of ~10, project still in progress.",
     role: "Lead UI/UX Designer",
     year: "2026",
     tags: ["Figma", "Product", "Stakeholders"],
     cover: { hue: "violet", from: "#a855f7", to: "#3b0764" },
+    status: "In progress",
     problem:
       "A cross-functional team of about ten needs one visual direction, otherwise engineering, content, and stakeholders all improvise. I own how the product looks and reads, stay in lockstep with our clients (committee + members), and pressure-test every frame: does this communicate the decision we need someone to make?",
     process: [
@@ -34,18 +61,19 @@ export const projects: Project[] = [
       { label: "Team", value: "~10" },
       { label: "Role", value: "Lead UI" },
       { label: "Members", value: "120+" },
-      { label: "Status", value: "Shipping" },
+      { label: "Status", value: "In progress" },
     ],
   },
   {
     slug: "fsae",
-    index: "002",
+    index: "003",
     title: "Formula SAE47",
     tagline: "Maintaining the public face of a 10,000+ follower motorsport club.",
     role: "Frontend Developer",
     year: "2025",
     tags: ["React", "Frontend", "Auth", "RBAC"],
     cover: { hue: "indigo", from: "#6366f1", to: "#1e1b4b" },
+    status: "Shipped",
     problem:
       "The University of Auckland's Formula SAE team has a real public surface: alumni, sponsors, prospective students, recruiters. Layouts had drifted, the auth area exposed views it shouldn't, and the site was leaking trust at exactly the moments it needed to earn it. The work was making maintenance feel calm again.",
     process: [
@@ -64,13 +92,14 @@ export const projects: Project[] = [
   },
   {
     slug: "podbay",
-    index: "003",
+    index: "004",
     title: "PodBay",
     tagline: "A full-stack podcast library, built in a team of three.",
     role: "Full-Stack Developer",
     year: "2025",
     tags: ["Flask", "SQLAlchemy", "Python", "PyTest"],
     cover: { hue: "cyan", from: "#22d3ee", to: "#0c4a6e" },
+    status: "Shipped",
     problem:
       "A university brief asked for an end-to-end web app, not a toy demo. The team needed real persistence, real navigation, and a UX that justified itself, not a Bootstrap dashboard with five tabs. Three people, Flask, SQLAlchemy, and a deadline.",
     process: [
@@ -89,13 +118,14 @@ export const projects: Project[] = [
   },
   {
     slug: "sap-pwc",
-    index: "004",
+    index: "005",
     title: "SAP × PwC",
     tagline: "UX lead on a public transport concept, 1 of 30 selected.",
     role: "UI/UX Designer",
     year: "2024",
     tags: ["SAP Fiori", "UX", "Personas", "Presentation"],
     cover: { hue: "amber", from: "#f59e0b", to: "#7c2d12" },
+    status: "Shipped",
     problem:
       "A competitive, invitation-only event (1 of ~30 candidates) bridging enterprise UX tooling with consultancy-style problem framing. The brief: make public transport usefully better, using SAP Fiori's design language, and defend it to a panel of PwC and SAP directors. Five days. One shot.",
     process: [
@@ -113,13 +143,14 @@ export const projects: Project[] = [
   },
   {
     slug: "student-video-chat",
-    index: "005",
+    index: "006",
     title: "Student Video Chat",
     tagline: "Hackathon build: a randomised video pairing tool for students.",
     role: "Frontend & Designer",
     year: "2024",
     tags: ["React", "WebRTC", "Hackathon", "Realtime"],
     cover: { hue: "rose", from: "#f43f5e", to: "#4c0519" },
+    status: "Shipped",
     problem:
       "Random video pairing for studying sounds great until you actually use one. It's either chaotic or empty. The challenge in a 6-person hackathon team was making spontaneous connection feel comprehensible, not chaotic, on real campus-grade networks.",
     process: [
@@ -137,13 +168,14 @@ export const projects: Project[] = [
   },
   {
     slug: "crypto-research",
-    index: "006",
+    index: "007",
     title: "Crypto Research",
     tagline: "A data storytelling site marrying narrative with Tableau dashboards.",
     role: "Designer & Analyst",
     year: "2024",
     tags: ["Tableau", "Wix", "Data Viz", "Performance"],
     cover: { hue: "lime", from: "#84cc16", to: "#1a2e05" },
+    status: "Shipped",
     problem:
       "Crypto data is enormous and confusing, and most attempts to explain it are either too academic or pure hype. The brief was a public-facing research site that let unfamiliar readers actually learn quickly, with readable and calm visuals.",
     process: [
@@ -161,13 +193,14 @@ export const projects: Project[] = [
   },
   {
     slug: "edp-consulting",
-    index: "007",
+    index: "008",
     title: "EdP Consulting",
     tagline: "Engineering consultancy portfolio with credibility for a skeptical reader.",
     role: "Web Designer",
     year: "2023",
     tags: ["Wix", "Client Work", "Brand"],
     cover: { hue: "slate", from: "#475569", to: "#0f172a" },
+    status: "Shipped",
     problem:
       "An engineering consultancy needed a web presence that communicated competence to procurement-adjacent decision makers without drowning them in jargon. First real client work: a Wix build that had to look credible, not arty.",
     process: [

@@ -20,9 +20,21 @@ type ExperienceItem = {
 const experience: ExperienceItem[] = [
   {
     year: "2026 - Now",
-    role: "Lead UI/UX Designer",
-    org: "WDCC · Linux User Group app",
-    note: "Direct UI/UX across a ~10-person cross-functional team, translating technical constraints from engineers into language designers, stakeholders, and clients all read the same way. Open to constructive feedback every review; the design gets sharper that way. Project still in progress.",
+    role: "Lead Product Designer",
+    org: "WDCC (NZL) & CourtSafe AI (AUS)",
+    note: "Own end-to-end UX across two live cross-functional teams, translating technical constraints from engineers into language designers, stakeholders, and clients all read the same way. Open to constructive feedback every review; the design gets sharper that way.",
+    subRoles: [
+      {
+        label: "Lead UI/UX Designer, Linux User Group app",
+        date: "2026 - Now",
+        note: "Direct UI/UX across a ~10-person cross-functional team at WDCC, keeping engineering, content, and stakeholders on one visual direction. Project still in progress.",
+      },
+      {
+        label: "Lead Product Designer & UX Lead, CourtSafe AI",
+        date: "2026 - Now",
+        note: "Own end-to-end UX for a legal document verification tool built for a practising lawyer client, catching hallucinated citations and misquotes before a draft is filed. Design system implemented in code myself, RAG-backed verification, human-in-the-loop review workflow. 65% design, 35% frontend, six-person team. Final year capstone, still in progress.",
+      },
+    ],
   },
   {
     year: "2024 - Now",
