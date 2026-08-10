@@ -51,7 +51,7 @@ export function Contact() {
             strength={0.5}
             onPointerEnter={() => setVariant("send", "Send")}
             onPointerLeave={reset}
-            className="group relative inline-flex items-center gap-4 rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/60 px-8 py-6 text-base font-medium backdrop-blur transition-all hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black md:text-lg"
+            className="group relative inline-flex items-center gap-4 rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/60 px-8 py-6 text-base font-medium backdrop-blur transition-all hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)] md:text-lg"
           >
             <Mail className="h-5 w-5 transition-transform group-hover:-rotate-12" />
             {EMAIL}

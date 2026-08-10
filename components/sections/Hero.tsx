@@ -129,7 +129,7 @@ export function Hero() {
             transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
             className="absolute inset-[10%]"
           >
-            <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white/85 shadow-[0_0_14px_rgba(255,255,255,0.6)]" />
+            <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--fg)]/85 shadow-[0_0_14px_var(--fg)]" />
           </motion.div>
         </motion.div>
       </motion.div>
@@ -166,7 +166,7 @@ export function Hero() {
               strength={0.4}
               onPointerEnter={() => setVariant("hover")}
               onPointerLeave={reset}
-              className="group relative inline-flex items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/60 px-7 py-4 text-sm font-medium backdrop-blur transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black"
+              className="group relative inline-flex items-center gap-3 rounded-full border border-[var(--line)] bg-[var(--bg-soft)]/70 px-7 py-4 text-sm font-medium backdrop-blur transition-colors hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--accent-contrast)]"
             >
               See the work
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
