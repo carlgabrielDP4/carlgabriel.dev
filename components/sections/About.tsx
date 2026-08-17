@@ -9,7 +9,6 @@ const stats = [
   { k: "Countries visited", v: "09" },
   { k: "5K pace", v: "4:12/km" },
   { k: "Football position", v: "left wing" },
-  { k: "Favourite colour", v: "purple" },
   { k: "Highest hike", v: "3,143m" },
 ];
 
@@ -19,7 +18,7 @@ export function About() {
   const photoY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
-    <section id="about" className="relative px-6 py-32 md:px-10 md:py-40">
+    <section id="about" className="relative px-6 py-16 md:px-10 md:py-40">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-16 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
@@ -52,7 +51,7 @@ export function About() {
               I care about clean typography, easing curves, and the quiet moments where a product earns a user&apos;s trust. My favourite work lives between product design and the code that ships it, paired with honest conversation that keeps a team moving in the same direction. Graduating end of 2026 and looking for a team where that overlap matters.
             </motion.p>
 
-            <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-5">
+            <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.k}

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { VISITED_PLACES } from "@/content/visitedCountries";
@@ -41,16 +41,22 @@ const factTiles: FactTile[] = [
 export function Interests() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const carouselX = useTransform(scrollYProgress, [0, 1], ["20%", "-40%"]);
+  const isMobile = useIsMobile();
+  // Percentages resolve against track width (container, not strip). Mobile pans 7 cards; desktop keeps 20% to -40%.
+  const carouselX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isMobile ? ["180%", "-500%"] : ["20%", "-40%"],
+  );
 
   return (
-    <section id="interests" className="relative px-6 pt-32 pb-20 md:px-10 md:pt-48 md:pb-28">
+    <section id="interests" className="relative px-6 pt-16 pb-12 md:px-10 md:pt-48 md:pb-28">
       <div className="mx-auto max-w-[1400px]">
-        <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+        <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
             (05) - My Interests
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
             Places I&apos;ve touched grass at
           </span>
         </div>
@@ -112,6 +118,20 @@ export function Interests() {
       </div>
     </section>
   );
+}
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return isMobile;
 }
 
 function TravelCard({ place, caption, hue, image, focus }: TravelClip) {

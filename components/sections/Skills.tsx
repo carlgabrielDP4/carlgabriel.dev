@@ -29,7 +29,7 @@ const services = [
 
 export function Skills() {
   return (
-    <section id="skills" className="relative overflow-hidden border-y border-[var(--line)] py-24 md:py-32">
+    <section id="skills" className="relative overflow-hidden border-y border-[var(--line)] py-14 md:py-32">
       <div className="mb-12 flex items-baseline justify-between gap-6 px-6 md:px-10">
         <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
           (03) - Tools / Services
