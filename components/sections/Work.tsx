@@ -10,11 +10,11 @@ export function Work() {
   return (
     <section id="work" className="relative px-6 py-32 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
-        <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+        <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
             (04) - Projects
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
             {projects.length} projects · 2024 → 2026
           </span>
         </div>
@@ -43,13 +43,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         href={`/work/${project.slug}`}
         onPointerEnter={() => setVariant("view", "View")}
         onPointerLeave={reset}
-        className="group relative grid grid-cols-12 items-center gap-4 border-t border-[var(--line)] py-8 transition-colors hover:border-[var(--accent)] md:py-12"
+        className="group relative grid grid-cols-12 items-center gap-x-4 gap-y-3 border-t border-[var(--line)] py-8 transition-colors hover:border-[var(--accent)] md:gap-4 md:py-12"
       >
-        <span className="col-span-2 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:col-span-1">
+        {/* Mobile: three rows (index, title, tags) instead of 12-column grid. */}
+        <span className="col-span-6 row-start-1 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:col-span-1">
           {project.index}
         </span>
 
-        <div className="col-span-10 md:col-span-6">
+        <div className="col-span-12 row-start-2 md:col-span-6 md:row-start-1">
           <h3 className="font-display text-[clamp(2rem,5vw,4rem)] font-medium leading-[1] tracking-tight transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-[var(--accent)]">
             {project.title}
           </h3>
@@ -58,8 +59,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </p>
         </div>
 
-        <div className="col-span-7 hidden text-right md:col-span-3 md:block">
-          <div className="flex flex-wrap justify-end gap-2">
+        <div className="col-span-12 row-start-3 md:col-span-3 md:row-start-1 md:text-right">
+          <div className="flex flex-wrap gap-2 md:justify-end">
             {project.tags.slice(0, 3).map((t) => (
               <span
                 key={t}
@@ -71,8 +72,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </div>
         </div>
 
-        <div className="col-span-1 flex items-center justify-end md:col-span-2">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:mr-4">
+        <div className="col-span-6 row-start-1 flex items-center justify-end md:col-span-2 md:row-start-1">
+          <span className="mr-3 whitespace-nowrap font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:mr-4">
             {project.year}
           </span>
           <ArrowUpRight className="h-5 w-5 transition-transform duration-500 group-hover:rotate-45 group-hover:text-[var(--accent)]" />

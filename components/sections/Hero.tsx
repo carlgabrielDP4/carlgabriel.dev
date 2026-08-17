@@ -35,106 +35,10 @@ export function Hero() {
         transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className="pointer-events-none absolute right-[2vw] top-1/2 z-[1] hidden h-[clamp(360px,40vw,560px)] w-[clamp(360px,40vw,560px)] -translate-y-1/2 md:block"
       >
-        <motion.div
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-          className="relative h-full w-full"
-        >
-          <div
-            className="absolute inset-[-6%] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.45) 0%, rgba(124,58,237,0.25) 35%, rgba(236,72,153,0.15) 60%, transparent 78%)",
-              opacity: 0.9,
-            }}
-          />
-
-          <motion.div
-            animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.025, 1] }}
-            transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-[14%] rounded-full"
-            style={{
-              boxShadow:
-                "inset 0 0 0 1px rgba(168,85,247,0.55), 0 0 70px rgba(168,85,247,0.28)",
-            }}
-          />
-
-          <motion.svg
-            viewBox="0 0 200 200"
-            className="absolute inset-0 h-full w-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
-            style={{ willChange: "transform" }}
-          >
-            <defs>
-              <path
-                id="hero-portrait-arc"
-                d="M 100,100 m -94,0 a 94,94 0 1,1 188,0 a 94,94 0 1,1 -188,0"
-                fill="none"
-              />
-            </defs>
-            <text
-              style={{
-                fontFamily: "var(--font-mono, ui-monospace, monospace)",
-                fontSize: "5.2px",
-                letterSpacing: "0.42em",
-                textTransform: "uppercase",
-                fill: "var(--fg-muted)",
-              }}
-            >
-              <textPath href="#hero-portrait-arc" startOffset="0%">
-                Computer Science + I.T Management · University of Auckland · UI/UX Product Design · 
-              </textPath>
-            </text>
-          </motion.svg>
-
-          <motion.div
-            animate={{ scale: [1, 1.035, 1] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-[15%] overflow-hidden rounded-full"
-            style={{
-              WebkitMaskImage:
-                "radial-gradient(circle at center, #000 58%, rgba(0,0,0,0.85) 74%, rgba(0,0,0,0.35) 90%, transparent 100%)",
-              maskImage:
-                "radial-gradient(circle at center, #000 58%, rgba(0,0,0,0.85) 74%, rgba(0,0,0,0.35) 90%, transparent 100%)",
-            }}
-          >
-            <Image
-              src="/images/portrait/carl-suited-up.png"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 768px) 40vw, 0vw"
-              className="object-cover object-[center_22%] opacity-90"
-            />
-            <div
-              className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(168,85,247,0.28), transparent 45%, rgba(236,72,153,0.22))",
-              }}
-            />
-          </motion.div>
-
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[6%]"
-          >
-            <div className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--accent)] shadow-[0_0_22px_var(--accent)]" />
-          </motion.div>
-
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[10%]"
-          >
-            <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--fg)]/85 shadow-[0_0_14px_var(--fg)]" />
-          </motion.div>
-        </motion.div>
+        <PortraitOrb arcId="hero-portrait-arc" sizes="(min-width: 768px) 40vw, 0vw" priority />
       </motion.div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-between px-6 pb-12 pt-28 md:px-10 md:pb-16 md:pt-32">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-between px-6 pb-20 pt-28 md:px-10 md:pb-16 md:pt-32">
         <div className="flex flex-col gap-6">
           <h1 className="font-display text-[clamp(4.5rem,15vw,15rem)] font-medium leading-[0.85] tracking-[-0.03em] md:max-w-[68%] lg:max-w-[64%]">
             <SplitLine delay={0.1}>Carl</SplitLine>
@@ -142,6 +46,36 @@ export function Hero() {
               Dela Pena
             </SplitLine>
           </h1>
+        </div>
+
+        {/* Mobile portrait takes the center band; desktop portrait is off-right. */}
+        <div className="relative flex items-center justify-end md:hidden">
+          <motion.div
+            initial={{ opacity: 0, x: -12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 font-mono text-[10px] uppercase leading-[1.8] tracking-[0.22em] text-[var(--fg-muted)]"
+          >
+            <span className="mb-2 block h-8 w-px bg-[var(--accent)]" />
+            Auckland, NZ
+            <br />
+            CS + ITM · 2026
+          </motion.div>
+
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-none -mr-3 h-[clamp(180px,52vw,260px)] w-[clamp(180px,52vw,260px)]"
+          >
+            <PortraitOrb
+              arcId="hero-portrait-arc-mobile"
+              arcText="Carl Dela Pena · UI/UX + Front-end · University of Auckland · "
+              arcFontSize="6.6px"
+              sizes="(min-width: 768px) 0vw, 60vw"
+            />
+          </motion.div>
         </div>
 
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
@@ -190,7 +124,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.55, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 md:bottom-8"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -202,6 +136,119 @@ export function Hero() {
         </motion.div>
       </motion.div>
     </section>
+  );
+}
+
+function PortraitOrb({
+  arcId,
+  sizes,
+  arcText = "Computer Science + I.T Management · University of Auckland · UI/UX Product Design · ",
+  arcFontSize = "5.2px",
+  priority = false,
+}: {
+  arcId: string;
+  sizes: string;
+  arcText?: string;
+  arcFontSize?: string;
+  priority?: boolean;
+}) {
+  return (
+    <motion.div
+      animate={{ y: [0, -12, 0] }}
+      transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+      className="relative h-full w-full"
+    >
+      <div
+        className="absolute inset-[-6%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(168,85,247,0.45) 0%, rgba(124,58,237,0.25) 35%, rgba(236,72,153,0.15) 60%, transparent 78%)",
+          opacity: 0.9,
+        }}
+      />
+
+      <motion.div
+        animate={{ opacity: [0.35, 0.7, 0.35], scale: [1, 1.025, 1] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-[14%] rounded-full"
+        style={{
+          boxShadow: "inset 0 0 0 1px rgba(168,85,247,0.55), 0 0 70px rgba(168,85,247,0.28)",
+        }}
+      />
+
+      <motion.svg
+        viewBox="0 0 200 200"
+        className="absolute inset-0 h-full w-full"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 42, repeat: Infinity, ease: "linear" }}
+        style={{ willChange: "transform" }}
+      >
+        <defs>
+          <path
+            id={arcId}
+            d="M 100,100 m -94,0 a 94,94 0 1,1 188,0 a 94,94 0 1,1 -188,0"
+            fill="none"
+          />
+        </defs>
+        <text
+          style={{
+            fontFamily: "var(--font-mono, ui-monospace, monospace)",
+            fontSize: arcFontSize,
+            letterSpacing: "0.42em",
+            textTransform: "uppercase",
+            fill: "var(--fg-muted)",
+          }}
+        >
+          <textPath href={`#${arcId}`} startOffset="0%">
+            {arcText}
+          </textPath>
+        </text>
+      </motion.svg>
+
+      <motion.div
+        animate={{ scale: [1, 1.035, 1] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-[15%] overflow-hidden rounded-full"
+        style={{
+          WebkitMaskImage:
+            "radial-gradient(circle at center, #000 58%, rgba(0,0,0,0.85) 74%, rgba(0,0,0,0.35) 90%, transparent 100%)",
+          maskImage:
+            "radial-gradient(circle at center, #000 58%, rgba(0,0,0,0.85) 74%, rgba(0,0,0,0.35) 90%, transparent 100%)",
+        }}
+      >
+        <Image
+          src="/images/portrait/carl-suited-up.png"
+          alt=""
+          fill
+          priority={priority}
+          sizes={sizes}
+          className="object-cover object-[center_22%] opacity-90"
+        />
+        <div
+          className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(168,85,247,0.28), transparent 45%, rgba(236,72,153,0.22))",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[6%]"
+      >
+        <div className="absolute left-1/2 top-0 h-2 w-2 -translate-x-1/2 rounded-full bg-[var(--accent)] shadow-[0_0_22px_var(--accent)]" />
+      </motion.div>
+
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[10%]"
+      >
+        <div className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-[var(--fg)]/85 shadow-[0_0_14px_var(--fg)]" />
+      </motion.div>
+    </motion.div>
   );
 }
 
