@@ -86,7 +86,7 @@ export function Experience() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="experience" className="relative px-6 py-32 md:px-10 md:py-48">
+    <section id="experience" className="relative px-6 py-16 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-20 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)]">

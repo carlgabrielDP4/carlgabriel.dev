@@ -50,7 +50,7 @@ export function Interests() {
   );
 
   return (
-    <section id="interests" className="relative px-6 pt-32 pb-20 md:px-10 md:pt-48 md:pb-28">
+    <section id="interests" className="relative px-6 pt-16 pb-12 md:px-10 md:pt-48 md:pb-28">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">

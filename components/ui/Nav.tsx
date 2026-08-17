@@ -79,7 +79,7 @@ export function Nav() {
           onClick={() => setMenuOpen(false)}
           className="font-display text-2xl font-medium tracking-tight md:text-3xl"
         >
-          carl<span className="text-[var(--accent)]">.</span>
+          carl gabriel<span className="text-[var(--accent)]">.</span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

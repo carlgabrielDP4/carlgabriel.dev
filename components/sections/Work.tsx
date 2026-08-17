@@ -8,7 +8,7 @@ import { useCursor } from "@/lib/cursor-provider";
 
 export function Work() {
   return (
-    <section id="work" className="relative px-6 py-32 md:px-10 md:py-48">
+    <section id="work" className="relative px-6 py-16 md:px-10 md:py-48">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">

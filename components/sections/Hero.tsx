@@ -85,7 +85,11 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="max-w-md text-balance text-base text-[var(--fg-muted)] md:text-lg"
           >
-            Studying Computer Science and Information Technology Management at the University of Auckland. I build interfaces that read clearly, move with intent, and translate well to every teammate I ship them with.
+            Curious enough to ask why,
+            <br />
+            Technical enough to find out,
+            <br />
+            Human enough to care about the answer.
           </motion.p>
 
           <motion.div
