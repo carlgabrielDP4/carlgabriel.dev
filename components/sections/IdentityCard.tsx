@@ -8,7 +8,7 @@ const TOKENS = [
   "INFP",
   "CS + ITM '26",
   "sub-20 5K",
-  "left wing",
+  "winger",
   "royal blue",
   "INTJ-coded · INFP-confirmed",
   "coffee: black, two sugars",

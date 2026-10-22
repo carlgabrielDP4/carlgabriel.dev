@@ -8,7 +8,7 @@ import { TextReveal } from "@/components/motion/TextReveal";
 const stats = [
   { k: "Countries visited", v: "09" },
   { k: "5K pace", v: "4:12/km" },
-  { k: "Football position", v: "left wing" },
+  { k: "Football position", v: "winger" },
   { k: "Highest hike", v: "3,143m" },
 ];
 
