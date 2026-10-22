@@ -34,7 +34,7 @@ type FactTile = {
 const factTiles: FactTile[] = [
   { k: "Countries", v: `${VISITED_PLACES.length} visited` },
   { k: "5K pace", v: "4:12/km" },
-  { k: "Football", v: "Left wing", image: "/images/football/football-field-action-shot.jpeg" },
+  { k: "Football", v: "Winger", image: "/images/football/football-field-action-shot.jpeg" },
   { k: "Highest hike", v: "Fansipan · 3,143m" },
 ];
 
