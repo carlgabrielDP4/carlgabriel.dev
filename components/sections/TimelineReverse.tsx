@@ -14,8 +14,8 @@ const TIMELINE: Entry[] = [
     year: "2026",
     title: "Last year. The pressure year.",
     body:
-      "Honestly feeling behind in a final year that won't slow down. The 1-of-7 Nike Oregon sponsorship was the moment I realised value can find you somewhere else (different country, different field), and I started leaning all the way into UI/UX product design, where the technical and the human meet. 6 countries already this year, and the year isn't even over.",
-    tags: ["Nike Oregon · 1 of 7", "UI/UX direction", "6 countries this year"],
+      "Honestly feeling behind in a final year that won't slow down. The 1-of-64 Nike Oregon sponsorship was the moment I realised value can find you somewhere else (different country, different field), and I started leaning all the way into UI/UX product design, where the technical and the human meet. 6 countries already this year, and the year isn't even over.",
+    tags: ["Nike Oregon · 1 of 64", "UI/UX direction", "6 countries this year"],
   },
   {
     year: "2025",
