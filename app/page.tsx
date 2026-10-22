@@ -6,6 +6,9 @@ const About = dynamic(() => import("@/components/sections/About").then((m) => m.
 const Experience = dynamic(() =>
   import("@/components/sections/Experience").then((m) => m.Experience),
 );
+const Featured = dynamic(() =>
+  import("@/components/sections/Featured").then((m) => m.Featured),
+);
 const Work = dynamic(() => import("@/components/sections/Work").then((m) => m.Work));
 const Skills = dynamic(() => import("@/components/sections/Skills").then((m) => m.Skills));
 const Interests = dynamic(() =>
@@ -20,6 +23,7 @@ export default function HomePage() {
       <Hero />
       <About />
       <Experience />
+      <Featured />
       <Skills />
       <Work />
       <Interests />

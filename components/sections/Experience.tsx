@@ -45,7 +45,7 @@ const experience: ExperienceItem[] = [
       {
         label: "International Nike Ambassador",
         date: "June 2026",
-        note: "1 of 7 picked globally for an all-expenses Nike trip from Auckland, NZ to Oregon, USA (Nike World Headquarters in Beaverton). Selected for storytelling on camera and travel content rather than raw football skill. Football opened the door; communication closed it.",
+        note: "1 of 64 picked globally for an all-expenses Nike trip from Auckland, NZ to Oregon, USA (Nike World Headquarters in Beaverton). Selected for storytelling on camera and travel content rather than raw football skill. Football opened the door; communication closed it.",
       },
       {
         label: "Nike Running Certified Athlete",
