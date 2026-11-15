@@ -17,6 +17,8 @@ export type Project = {
   gallery?: { src: string; alt: string }[];
   /** Optional headline screenshot shown beside the title in the case study hero. */
   heroImage?: { src: string; alt: string; url?: string };
+  /** Optional project poster shown full width after the figures; links to the full-size file. */
+  poster?: { src: string; alt: string; width: number; height: number };
 };
 
 export const projects: Project[] = [
@@ -70,6 +72,12 @@ export const projects: Project[] = [
       src: "/images/projects/courtsafe-ai/home.png",
       alt: "CourtSafe home page with the line 'Every date sorted. Your files secure.' above a sample chronology table",
       url: "courtsafe.me",
+    },
+    poster: {
+      src: "/images/projects/courtsafe-ai/poster.png",
+      alt: "CourtSafe project poster covering the problem, solution, system architecture, technologies, outcomes and future work",
+      width: 1582,
+      height: 1118,
     },
   },
   {

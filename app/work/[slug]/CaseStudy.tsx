@@ -188,6 +188,42 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
         </div>
       </section>
 
+      {project.poster && (
+        <section className="relative px-6 pb-32 md:px-10 md:pb-48">
+          <div className="mx-auto max-w-[1400px]">
+            <div className="flex items-baseline justify-between gap-4">
+              <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
+                Project poster
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)]">
+                Click to open full size
+              </span>
+            </div>
+            <motion.a
+              href={project.poster.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              onPointerEnter={() => setVariant("view", "View")}
+              onPointerLeave={reset}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 block overflow-hidden rounded-md border border-[var(--line)] bg-[var(--bg-soft)]"
+            >
+              <Image
+                src={project.poster.src}
+                alt={project.poster.alt}
+                width={project.poster.width}
+                height={project.poster.height}
+                sizes="(min-width: 1480px) 1400px, 100vw"
+                className="h-auto w-full"
+              />
+            </motion.a>
+          </div>
+        </section>
+      )}
+
       <section className="relative border-y border-[var(--line)] px-6 py-32 md:px-10 md:py-40">
         <div className="mx-auto max-w-[1400px]">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">
