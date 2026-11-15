@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { projects, type Project } from "@/content/projects";
 import { useCursor } from "@/lib/cursor-provider";
+import { cn } from "@/lib/cn";
 
 export function Work() {
   return (
@@ -100,7 +101,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         href={`/work/${project.slug}`}
         onPointerEnter={() => setVariant("view", "View")}
         onPointerLeave={reset}
-        className="group relative grid grid-cols-12 items-center gap-x-4 gap-y-3 border-t border-[var(--line)] py-8 transition-colors hover:border-[var(--accent)] md:gap-4 md:py-12"
+        className={cn(
+          "group relative grid grid-cols-12 items-center gap-x-4 gap-y-3 border-t border-[var(--line)] py-8 transition-colors hover:border-[var(--accent)] md:gap-4 md:py-12",
+          project.spotlight && "py-10 md:py-16"
+        )}
       >
         {/* Mobile: three rows (index, title, tags) instead of 12-column grid. */}
         <span className="col-span-6 row-start-1 font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:col-span-1">
@@ -108,7 +112,18 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         </span>
 
         <div className="col-span-12 row-start-2 md:col-span-6 md:row-start-1">
-          <h3 className="font-display text-[clamp(2rem,5vw,4rem)] font-medium leading-[1] tracking-tight transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-[var(--accent)]">
+          {project.spotlight && (
+            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
+              Highlight
+            </span>
+          )}
+          <h3
+            className={cn(
+              "font-display text-[clamp(2rem,5vw,4rem)] font-medium leading-[1] tracking-tight transition-transform duration-500 group-hover:-translate-y-1 group-hover:text-[var(--accent)]",
+              project.spotlight && "text-[clamp(2.5rem,7vw,6rem)] leading-[0.95]"
+            )}
+          >
             {project.title}
           </h3>
           <p className="mt-2 max-w-md text-sm text-[var(--fg-muted)] md:text-base">
