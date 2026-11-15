@@ -59,7 +59,9 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
                   stagger={0.025}
                   className={cn(
                     "font-display text-[clamp(4rem,18vw,18rem)] font-medium leading-[0.85] tracking-tight text-white",
-                    project.heroImage && "md:text-[clamp(4rem,10.5vw,11rem)]"
+                    // Leading goes last: tailwind-merge drops an earlier leading-* when a text size follows it.
+                    project.heroImage &&
+                      "text-[clamp(3rem,13vw,18rem)] md:text-[clamp(4rem,10.5vw,11rem)] leading-[0.85]"
                   )}
                   text={project.title}
                 />
@@ -179,11 +181,21 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
             {FIGURE_SLOTS.map((slot, i) => {
               const shot = project.gallery?.[i];
               return shot ? (
-                <Figure key={slot.label} src={shot.src} alt={shot.alt} sizes={slot.sizes} className={slot.className} />
+                <Figure key={slot.label} {...shot} sizes={slot.sizes} aspect={slot.aspect} className={slot.span} />
               ) : (
-                <AssetPlaceholder key={slot.label} label={slot.label} className={slot.className} />
+                <AssetPlaceholder key={slot.label} label={slot.label} className={cn(slot.aspect, slot.span)} />
               );
             })}
+            {/* Anything past the three main slots flows on as 16:9 pairs. */}
+            {project.gallery?.slice(FIGURE_SLOTS.length).map((shot) => (
+              <Figure
+                key={shot.src}
+                {...shot}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                aspect="aspect-[16/9]"
+                className="md:col-span-6"
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -281,9 +293,9 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
 }
 
 const FIGURE_SLOTS = [
-  { label: "fig 01 — final UI", className: "aspect-[4/3] md:col-span-7", sizes: "(min-width: 768px) 58vw, 100vw" },
-  { label: "fig 02 — wireframe set", className: "aspect-[4/3] md:col-span-5", sizes: "(min-width: 768px) 42vw, 100vw" },
-  { label: "fig 03 — system overview", className: "aspect-[16/9] md:col-span-12", sizes: "100vw" },
+  { label: "fig 01 — final UI", aspect: "aspect-[4/3]", span: "md:col-span-7", sizes: "(min-width: 768px) 58vw, 100vw" },
+  { label: "fig 02 — wireframe set", aspect: "aspect-[4/3]", span: "md:col-span-5", sizes: "(min-width: 768px) 42vw, 100vw" },
+  { label: "fig 03 — system overview", aspect: "aspect-[16/9]", span: "md:col-span-12", sizes: "100vw" },
 ];
 
 function HeroShot({ src, alt, url }: { src: string; alt: string; url?: string }) {
@@ -312,16 +324,35 @@ function HeroShot({ src, alt, url }: { src: string; alt: string; url?: string })
   );
 }
 
-function Figure({ src, alt, sizes, className }: { src: string; alt: string; sizes: string; className?: string }) {
+function Figure({
+  src,
+  alt,
+  caption,
+  sizes,
+  aspect,
+  className,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  sizes: string;
+  aspect: string;
+  className?: string;
+}) {
   return (
-    <div
-      className={cn(
-        "relative w-full overflow-hidden rounded-md border border-[var(--line)] bg-[var(--bg-soft)]",
-        className
+    <figure className={cn("w-full", className)}>
+      <div
+        className={cn(
+          "relative w-full overflow-hidden rounded-md border border-[var(--line)] bg-[var(--bg-soft)]",
+          aspect
+        )}
+      >
+        <Image src={src} alt={alt} fill sizes={sizes} className="object-cover object-left-top" />
+      </div>
+      {caption && (
+        <figcaption className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--fg-muted)]">{caption}</figcaption>
       )}
-    >
-      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover object-left-top" />
-    </div>
+    </figure>
   );
 }
 

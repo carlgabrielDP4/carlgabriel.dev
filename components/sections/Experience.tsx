@@ -27,7 +27,7 @@ const experience: ExperienceItem[] = [
       {
         label: "Lead UI/UX Designer, Linux User Group app",
         date: "2026 - Now",
-        note: "Direct UI/UX across a ~10-person cross-functional team at WDCC, keeping engineering, content, and stakeholders on one visual direction. Project still in progress.",
+        note: "Direct UI/UX across a ~10-person cross-functional team at WDCC, keeping engineering, content, and stakeholders on one visual direction. Designed and built the terminal-first home page and light and dark themes; live at lug-psi.vercel.app.",
       },
       {
         label: "Lead Product Designer, CourtSafe AI",

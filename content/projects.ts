@@ -17,8 +17,8 @@ export type Project = {
   spotlight?: boolean;
   /** Optional external links shown as pills in the case study hero. */
   links?: { label: string; href: string }[];
-  /** Optional screenshots that fill the case study figure slots in order (up to 3). */
-  gallery?: { src: string; alt: string }[];
+  /** Optional screenshots: the first three fill the figure slots, any extras follow as 16:9 pairs. */
+  gallery?: { src: string; alt: string; caption?: string }[];
   /** Optional headline screenshot shown beside the title in the case study hero. */
   heroImage?: { src: string; alt: string; url?: string };
   /** Optional project poster shown full width after the figures; links to the full-size file. */
@@ -92,25 +92,76 @@ export const projects: Project[] = [
     spotlight: true,
     index: "002",
     title: "Linux User Group",
-    tagline: "Lead UI/UX on our club app, cross-functional team of ~10, project still in progress.",
+    tagline:
+      "A terminal-first website for the University of Auckland Linux Users Group. I led UI/UX for a cross-functional team of about ten.",
     role: "Lead UI/UX Designer",
     year: "2026",
-    tags: ["Figma", "Product", "Stakeholders"],
-    cover: { hue: "violet", from: "#a855f7", to: "#3b0764" },
-    status: "In progress",
+    tags: ["Product Design", "Figma", "Next.js", "Tailwind CSS", "PostgreSQL"],
+    // LUG accent teal (#3fcca8) into a deep green-black.
+    cover: { hue: "teal", from: "#2fb894", to: "#03201b" },
+    status: "Live",
     problem:
-      "A cross-functional team of about ten needs one visual direction, otherwise engineering, content, and stakeholders all improvise. I own how the product looks and reads, stay in lockstep with our clients (committee + members), and pressure-test every frame: does this communicate the decision we need someone to make?",
+      "The Linux Users Group needed one home for its public site, member sign-ups, a blog and admin tools for the club executives. The brief came with a hard rule: core features had to work with JavaScript turned off. A cross-functional team of about ten needs one visual direction, otherwise engineering, content and stakeholders all improvise. I owned how the product looks and reads, and stayed in lockstep with our clients, the committee and members.",
     process: [
-      "Single source of truth in Figma: naming, spacing, and repeatable patterns so devs mirror intent instead of guessing.",
-      "Weekly alignment with stakeholders; trade-offs surface early, not the week before handoff.",
-      "Flows and IA before polish, because motion and UI never lie about what's actually built.",
-      "Handoff includes empty, error, and loading, not just the hero path marketing asked for.",
+      "Made the terminal the navigation. The home page is a working shell window: help, ls, cd, theme, whoami, clear and exit all work, and typing a page name on its own, like sign-up, opens that page.",
+      "Designed for mistakes, not just the happy path. Typing shows ranked suggestions with inline completion, unknown commands explain what went wrong and what to try next, and keyboard hints for browse, complete and run sit in the prompt.",
+      "Kept it friendly for people who never touch a prompt. The three headline commands are real links, so sign-up, about and blog work with one click, and still work with JavaScript turned off.",
+      "Designed light and dark as a pair, each with its own artwork of the Auckland waterfront. The toggle button, the theme command and a no-JavaScript fallback all switch the same theme, and the choice is remembered.",
+      "Carried the terminal across the site. On every other page it docks into a small prompt that opens with the / key, so navigation feels the same everywhere.",
+      "Implemented the home page, terminal and theme system in code myself, with a single source of truth in Figma for naming, spacing and repeatable patterns so developers mirror intent instead of guessing.",
+      "Weekly alignment with stakeholders, so trade-offs surfaced early, not the week before handoff.",
     ],
     outcome: [
       { label: "Team", value: "~10" },
-      { label: "Role", value: "Lead UI" },
       { label: "Members", value: "120+" },
-      { label: "Status", value: "In progress" },
+      { label: "Themes", value: "2" },
+      { label: "JavaScript", value: "Optional" },
+    ],
+    links: [
+      { label: "Live site", href: "https://lug-psi.vercel.app" },
+      { label: "GitHub", href: "https://github.com/UoaWDCC/lug" },
+    ],
+    heroImage: {
+      src: "/images/projects/linux-user-group/home-dark.jpg",
+      alt: "LUG@UoA home page in dark mode: a terminal window with sign-up, about-us and blog commands beside an aurora over the Auckland skyline",
+      url: "lug-psi.vercel.app",
+    },
+    gallery: [
+      {
+        src: "/images/projects/linux-user-group/help-dark.jpg",
+        alt: "The home page terminal after running help, listing help, ls, cd, clear, theme, whoami and exit with a description for each",
+        caption: "help lists every command with a one-line description, and the prompt shows keyboard hints for browse, complete and run.",
+      },
+      {
+        src: "/images/projects/linux-user-group/ls-light.jpg",
+        alt: "The terminal in light mode after running ls and whoami",
+        caption: "The same terminal in light mode: ls lists the pages, and whoami nudges visitors toward signing up.",
+      },
+      {
+        src: "/images/projects/linux-user-group/dock-dark.jpg",
+        alt: "The About page with the docked terminal expanded into a list of suggested commands over a dimmed page",
+        caption: "Off the home page the terminal docks into a small prompt. Press / and it expands with suggestions over the page.",
+      },
+      {
+        src: "/images/projects/linux-user-group/about-dark.jpg",
+        alt: "The About page in dark mode with Build, Share and Talk cards",
+        caption: "Dark mode: aurora artwork, teal accents.",
+      },
+      {
+        src: "/images/projects/linux-user-group/about-light.jpg",
+        alt: "The About page in light mode with Build, Share and Talk cards",
+        caption: "Light mode: daytime artwork, same layout and hierarchy.",
+      },
+      {
+        src: "/images/projects/linux-user-group/suggest-light.jpg",
+        alt: "The home page terminal in light mode showing autocomplete suggestions while typing th",
+        caption: "Autocomplete ranks matches as you type and previews the completion inline.",
+      },
+      {
+        src: "/images/projects/linux-user-group/register-dark.jpg",
+        alt: "Step 1 of 3 of the membership sign-up form asking whether the visitor is a UoA student",
+        caption: "Sign-up is a short three-step form with a progress indicator, one question at a time.",
+      },
     ],
   },
   {
