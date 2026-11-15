@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
@@ -77,6 +78,30 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
               <Meta k="Tags" v={project.tags.slice(0, 2).join(", ")} />
               <Meta k="Status" v={project.status} />
             </motion.div>
+
+            {project.links && project.links.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1.1 }}
+                className="mt-6 flex flex-wrap gap-3"
+              >
+                {project.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onPointerEnter={() => setVariant("hover")}
+                    onPointerLeave={reset}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white backdrop-blur transition-colors hover:border-white"
+                  >
+                    {l.label}
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                ))}
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
@@ -142,9 +167,14 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
       <section className="relative px-6 pb-32 md:px-10 md:pb-48">
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
-            <AssetPlaceholder label="fig 01 — final UI" className="aspect-[4/3] md:col-span-7" />
-            <AssetPlaceholder label="fig 02 — wireframe set" className="aspect-[4/3] md:col-span-5" />
-            <AssetPlaceholder label="fig 03 — system overview" className="aspect-[16/9] md:col-span-12" />
+            {FIGURE_SLOTS.map((slot, i) => {
+              const shot = project.gallery?.[i];
+              return shot ? (
+                <Figure key={slot.label} src={shot.src} alt={shot.alt} sizes={slot.sizes} className={slot.className} />
+              ) : (
+                <AssetPlaceholder key={slot.label} label={slot.label} className={slot.className} />
+              );
+            })}
           </div>
         </div>
       </section>
@@ -202,6 +232,25 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
 
       <Footer />
     </main>
+  );
+}
+
+const FIGURE_SLOTS = [
+  { label: "fig 01 — final UI", className: "aspect-[4/3] md:col-span-7", sizes: "(min-width: 768px) 58vw, 100vw" },
+  { label: "fig 02 — wireframe set", className: "aspect-[4/3] md:col-span-5", sizes: "(min-width: 768px) 42vw, 100vw" },
+  { label: "fig 03 — system overview", className: "aspect-[16/9] md:col-span-12", sizes: "100vw" },
+];
+
+function Figure({ src, alt, sizes, className }: { src: string; alt: string; sizes: string; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "relative w-full overflow-hidden rounded-md border border-[var(--line)] bg-[var(--bg-soft)]",
+        className
+      )}
+    >
+      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover object-left-top" />
+    </div>
   );
 }
 

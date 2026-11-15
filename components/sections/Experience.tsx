@@ -30,9 +30,9 @@ const experience: ExperienceItem[] = [
         note: "Direct UI/UX across a ~10-person cross-functional team at WDCC, keeping engineering, content, and stakeholders on one visual direction. Project still in progress.",
       },
       {
-        label: "Lead Product Designer & UX Lead, CourtSafe AI",
+        label: "Lead Product Designer, CourtSafe AI",
         date: "2026 - Now",
-        note: "Own end-to-end UX for a legal document verification tool built for a practising lawyer client, catching hallucinated citations and misquotes before a draft is filed. Design system implemented in code myself, RAG-backed verification, human-in-the-loop review workflow. 65% design, 35% frontend, six-person team. Final year capstone, still in progress.",
+        note: "Own end-to-end UX for a chronology tool for Australian litigation lawyers. It reads uploaded case documents and builds a list of dated events, each linked to its source page and paragraph, flags low-confidence dates for review, and exports to PDF or Word, with documents kept in Australia. Design system implemented in code myself. 65% design, 35% frontend, six-person team. Final year capstone, live at courtsafe.me.",
       },
     ],
   },

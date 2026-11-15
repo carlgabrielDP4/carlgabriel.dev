@@ -11,6 +11,10 @@ export type Project = {
   problem: string;
   process: string[];
   outcome: { label: string; value: string }[];
+  /** Optional external links shown as pills in the case study hero. */
+  links?: { label: string; href: string }[];
+  /** Optional screenshots that fill the case study figure slots in order (up to 3). */
+  gallery?: { src: string; alt: string }[];
 };
 
 export const projects: Project[] = [
@@ -18,25 +22,46 @@ export const projects: Project[] = [
     slug: "courtsafe-ai",
     index: "001",
     title: "CourtSafe AI",
-    tagline: "Legal document verification tool for a practising lawyer client, my final year capstone.",
-    role: "Lead Product Designer & UX Lead",
+    tagline:
+      "A chronology builder for Australian litigation lawyers, with every event traced back to its source document.",
+    role: "Lead Product Designer",
     year: "2026",
-    tags: ["AI", "RAG", "Legal Tech", "Product Design"],
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "AWS Bedrock", "Amazon Textract"],
     cover: { hue: "emerald", from: "#10b981", to: "#052e16" },
-    status: "In progress",
+    status: "Live",
     problem:
-      "Lawyers using AI have been sanctioned in court for filing briefs with citations that don't exist. CourtSafe is a capstone built for a practising lawyer client, catching hallucinated citations, misquotes, and timeline inconsistencies before a draft is filed, without ever overriding the lawyer's judgment.",
+      "CourtSafe AI helps Australian litigation lawyers put together a chronology of a matter. A lawyer creates a matter and uploads the case documents and evidence (PDF or Word files, including scans). CourtSafe reads every page and builds a list of dated events. Each event shows which document it came from, the page and paragraph, and how confident the system is. Low-confidence or conflicting dates are flagged so the lawyer checks those first.",
     process: [
-      "Owned end-to-end UX, from information architecture to interaction patterns, then implemented the design system in code so what shipped stayed close to what was designed.",
-      "Designed a Risk Dashboard and a side-by-side mismatch comparison so reviewing a draft means checking six flagged issues, not re-reading the whole document.",
-      "Built every AI output around four honest states, Verified, Not Found, Mismatch, Needs Review, always showing the source passage rather than a bare confidence score.",
-      "Scoped deliberately with a six-person team: shipped citation verification, chronology, and review workflow, and designed around future features instead of building them in shallow.",
+      "A lawyer creates a matter and uploads the case documents and evidence as PDF or Word files, including scans.",
+      "CourtSafe reads every page and builds a list of dated events, each showing the source document, page and paragraph, and how confident the system is.",
+      "Low-confidence or conflicting dates are flagged so the lawyer checks those first.",
+      "The lawyer stays in control: open the source for any event, edit, reorder, add or delete events, then export the chronology as a PDF or Word document.",
+      "Other lawyers can be invited to view or edit a matter.",
+      "Documents stay in Australia. Amazon Bedrock and Textract run only in Australian AWS regions, and uploaded files are never used to train AI models.",
     ],
     outcome: [
       { label: "Team", value: "6" },
-      { label: "Role", value: "Lead UX" },
-      { label: "Design time", value: "65%" },
-      { label: "Status", value: "Capstone" },
+      { label: "Category", value: "Web Dev" },
+      { label: "Semester", value: "S2 2026" },
+      { label: "Data residency", value: "AU" },
+    ],
+    links: [
+      { label: "Live site", href: "https://courtsafe.me" },
+      { label: "Capitalise", href: "https://www.capitalise.space/projects/6af69bcd040af2a0b477fd41" },
+    ],
+    gallery: [
+      {
+        src: "/images/projects/courtsafe-ai/chronology.png",
+        alt: "CourtSafe chronology table listing dated events with document references, confidence levels and review reasons",
+      },
+      {
+        src: "/images/projects/courtsafe-ai/files.png",
+        alt: "CourtSafe Your files tab listing the PDF documents uploaded to a matter, with download and remove actions",
+      },
+      {
+        src: "/images/projects/courtsafe-ai/home.png",
+        alt: "CourtSafe home page with the line 'Every date sorted. Your files secure.' above a sample chronology table",
+      },
     ],
   },
   {
