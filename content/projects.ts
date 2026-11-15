@@ -15,6 +15,8 @@ export type Project = {
   links?: { label: string; href: string }[];
   /** Optional screenshots that fill the case study figure slots in order (up to 3). */
   gallery?: { src: string; alt: string }[];
+  /** Optional headline screenshot shown beside the title in the case study hero. */
+  heroImage?: { src: string; alt: string; url?: string };
 };
 
 export const projects: Project[] = [
@@ -27,7 +29,8 @@ export const projects: Project[] = [
     role: "Lead Product Designer",
     year: "2026",
     tags: ["Next.js", "FastAPI", "PostgreSQL", "AWS Bedrock", "Amazon Textract"],
-    cover: { hue: "emerald", from: "#10b981", to: "#052e16" },
+    // CourtSafe brand red (#7c1d2b) sits in the middle of this gradient.
+    cover: { hue: "crimson", from: "#a8283e", to: "#22060b" },
     status: "Live",
     problem:
       "CourtSafe AI helps Australian litigation lawyers put together a chronology of a matter. A lawyer creates a matter and uploads the case documents and evidence (PDF or Word files, including scans). CourtSafe reads every page and builds a list of dated events. Each event shows which document it came from, the page and paragraph, and how confident the system is. Low-confidence or conflicting dates are flagged so the lawyer checks those first.",
@@ -59,10 +62,15 @@ export const projects: Project[] = [
         alt: "CourtSafe Your files tab listing the PDF documents uploaded to a matter, with download and remove actions",
       },
       {
-        src: "/images/projects/courtsafe-ai/home.png",
-        alt: "CourtSafe home page with the line 'Every date sorted. Your files secure.' above a sample chronology table",
+        src: "/images/projects/courtsafe-ai/matters.png",
+        alt: "CourtSafe My matters page listing a lawyer's matters with owner and last updated date",
       },
     ],
+    heroImage: {
+      src: "/images/projects/courtsafe-ai/home.png",
+      alt: "CourtSafe home page with the line 'Every date sorted. Your files secure.' above a sample chronology table",
+      url: "courtsafe.me",
+    },
   },
   {
     slug: "linux-user-group",

@@ -51,21 +51,30 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
           </div>
 
           <div>
-            <TextReveal
-              as="h1"
-              splitBy="char"
-              stagger={0.025}
-              className="font-display text-[clamp(4rem,18vw,18rem)] font-medium leading-[0.85] tracking-tight text-white"
-              text={project.title}
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="mt-6 max-w-xl text-balance text-lg text-white/85 md:text-xl"
-            >
-              {project.tagline}
-            </motion.p>
+            <div className={cn(project.heroImage && "grid items-end gap-8 md:grid-cols-12 md:gap-10")}>
+              <div className={cn(project.heroImage && "md:col-span-7")}>
+                <TextReveal
+                  as="h1"
+                  splitBy="char"
+                  stagger={0.025}
+                  className={cn(
+                    "font-display text-[clamp(4rem,18vw,18rem)] font-medium leading-[0.85] tracking-tight text-white",
+                    project.heroImage && "md:text-[clamp(4rem,10.5vw,11rem)]"
+                  )}
+                  text={project.title}
+                />
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                  className="mt-6 max-w-xl text-balance text-lg text-white/85 md:text-xl"
+                >
+                  {project.tagline}
+                </motion.p>
+              </div>
+
+              {project.heroImage && <HeroShot {...project.heroImage} />}
+            </div>
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -240,6 +249,32 @@ const FIGURE_SLOTS = [
   { label: "fig 02 — wireframe set", className: "aspect-[4/3] md:col-span-5", sizes: "(min-width: 768px) 42vw, 100vw" },
   { label: "fig 03 — system overview", className: "aspect-[16/9] md:col-span-12", sizes: "100vw" },
 ];
+
+function HeroShot({ src, alt, url }: { src: string; alt: string; url?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      // On phones the hero is a fixed 100svh, so only show the shot when there is room for it.
+      className="hidden md:col-span-5 md:block [@media(min-height:830px)]:block"
+    >
+      <div className="overflow-hidden rounded-lg border border-white/20 bg-black/20 shadow-2xl shadow-black/40 backdrop-blur">
+        <div className="flex items-center gap-1.5 border-b border-white/15 px-3 py-2">
+          <span className="h-2 w-2 rounded-full bg-white/35" />
+          <span className="h-2 w-2 rounded-full bg-white/35" />
+          <span className="h-2 w-2 rounded-full bg-white/35" />
+          {url && (
+            <span className="ml-2 truncate font-mono text-[10px] tracking-[0.15em] text-white/70">{url}</span>
+          )}
+        </div>
+        <div className="relative aspect-[16/9]">
+          <Image src={src} alt={alt} fill preload sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-top" />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 function Figure({ src, alt, sizes, className }: { src: string; alt: string; sizes: string; className?: string }) {
   return (
