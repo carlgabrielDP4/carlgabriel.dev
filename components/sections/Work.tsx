@@ -20,12 +20,69 @@ export function Work() {
         </div>
 
         <div className="flex flex-col">
-          {projects.map((p, i) => (
+          {featured.map((p, i) => (
             <ProjectRow key={p.slug} project={p} index={i} />
           ))}
         </div>
+
+        {others.length > 0 && (
+          <div className="mt-20 md:mt-32">
+            <div className="mb-4 flex items-baseline justify-between gap-4 md:mb-6">
+              <h3 className="font-display text-2xl font-medium tracking-tight md:text-3xl">Other projects</h3>
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
+                {others.length} more
+              </span>
+            </div>
+            <div className="flex flex-col">
+              {others.map((p, i) => (
+                <OtherProjectRow key={p.slug} project={p} index={i} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+const featured = projects.filter((p) => p.featured);
+const others = projects.filter((p) => !p.featured);
+
+function OtherProjectRow({ project, index }: { project: Project; index: number }) {
+  const { setVariant, reset } = useCursor();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <Link
+        href={`/work/${project.slug}`}
+        onPointerEnter={() => setVariant("view", "View")}
+        onPointerLeave={reset}
+        className="group grid grid-cols-12 items-baseline gap-x-4 gap-y-1 border-t border-[var(--line)] py-5 transition-colors hover:border-[var(--accent)] md:py-6"
+      >
+        <span className="col-span-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--fg-muted)] md:col-span-1 md:text-xs">
+          {project.index}
+        </span>
+        <div className="col-span-8 md:col-span-4">
+          <h4 className="font-display text-xl font-medium leading-tight tracking-tight transition-colors group-hover:text-[var(--accent)] md:text-2xl">
+            {project.title}
+          </h4>
+        </div>
+        <p className="col-span-12 col-start-3 text-sm text-[var(--fg-muted)] md:col-span-5 md:col-start-auto">
+          {project.tagline}
+        </p>
+        <div className="col-span-2 col-start-11 row-start-1 flex items-center justify-end gap-3 md:col-span-2 md:col-start-auto md:row-start-auto">
+          <span className="hidden whitespace-nowrap font-mono text-xs uppercase tracking-[0.2em] text-[var(--fg-muted)] md:inline">
+            {project.year}
+          </span>
+          <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:rotate-45 group-hover:text-[var(--accent)]" />
+        </div>
+      </Link>
+    </motion.div>
   );
 }
 

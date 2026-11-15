@@ -11,6 +11,8 @@ export type Project = {
   problem: string;
   process: string[];
   outcome: { label: string; value: string }[];
+  /** Featured projects get the full-size rows in the Work section; the rest go under "Other projects". */
+  featured?: boolean;
   /** Optional external links shown as pills in the case study hero. */
   links?: { label: string; href: string }[];
   /** Optional screenshots that fill the case study figure slots in order (up to 3). */
@@ -24,6 +26,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "courtsafe-ai",
+    featured: true,
     index: "001",
     title: "CourtSafe AI",
     tagline:
@@ -82,6 +85,7 @@ export const projects: Project[] = [
   },
   {
     slug: "linux-user-group",
+    featured: true,
     index: "002",
     title: "Linux User Group",
     tagline: "Lead UI/UX on our club app, cross-functional team of ~10, project still in progress.",
@@ -107,6 +111,7 @@ export const projects: Project[] = [
   },
   {
     slug: "fsae",
+    featured: true,
     index: "003",
     title: "Formula SAE47",
     tagline: "Maintaining the public face of a 10,000+ follower motorsport club.",
