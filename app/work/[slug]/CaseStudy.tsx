@@ -191,7 +191,7 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
               <Figure
                 key={shot.src}
                 {...shot}
-                sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1480px) 700px, (min-width: 768px) 50vw, 100vw"
                 aspect="aspect-[16/9]"
                 className="md:col-span-6"
               />
@@ -293,9 +293,9 @@ export function CaseStudy({ project, next }: { project: Project; next: Project }
 }
 
 const FIGURE_SLOTS = [
-  { label: "fig 01 — final UI", aspect: "aspect-[4/3]", span: "md:col-span-7", sizes: "(min-width: 768px) 58vw, 100vw" },
-  { label: "fig 02 — wireframe set", aspect: "aspect-[4/3]", span: "md:col-span-5", sizes: "(min-width: 768px) 42vw, 100vw" },
-  { label: "fig 03 — system overview", aspect: "aspect-[16/9]", span: "md:col-span-12", sizes: "100vw" },
+  { label: "fig 01 — final UI", aspect: "aspect-[4/3]", span: "md:col-span-7", sizes: "(min-width: 1480px) 820px, (min-width: 768px) 58vw, 100vw" },
+  { label: "fig 02 — wireframe set", aspect: "aspect-[4/3]", span: "md:col-span-5", sizes: "(min-width: 1480px) 580px, (min-width: 768px) 42vw, 100vw" },
+  { label: "fig 03 — system overview", aspect: "aspect-[16/9]", span: "md:col-span-12", sizes: "(min-width: 1480px) 1400px, 100vw" },
 ];
 
 function HeroShot({ src, alt, url }: { src: string; alt: string; url?: string }) {
@@ -317,7 +317,7 @@ function HeroShot({ src, alt, url }: { src: string; alt: string; url?: string })
           )}
         </div>
         <div className="relative aspect-[16/9]">
-          <Image src={src} alt={alt} fill preload sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-top" />
+          <Image src={src} alt={alt} fill preload sizes="(min-width: 1480px) 560px, (min-width: 768px) 40vw, 100vw" className="object-cover object-top" />
         </div>
       </div>
     </motion.div>
