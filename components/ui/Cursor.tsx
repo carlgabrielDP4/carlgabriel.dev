@@ -45,6 +45,7 @@ export function Cursor() {
     drag: 64,
     view: 80,
     send: 56,
+    gone: 0,
   };
 
   const size = sizeMap[variant] ?? 12;

@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 
 export function Work() {
   return (
-    <section id="work" className="relative px-6 py-16 md:px-10 md:py-48">
+    <section id="work" className="relative px-6 py-16 md:px-10 md:py-36">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
@@ -115,7 +115,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           {project.spotlight && (
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
               <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-              Highlight
+              Latest
             </span>
           )}
           <h3

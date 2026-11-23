@@ -18,7 +18,7 @@ export function About() {
   const photoY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
-    <section id="about" className="relative px-6 py-16 md:px-10 md:py-40">
+    <section id="about" className="relative px-6 py-16 md:px-10 md:py-32">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-16 flex items-baseline justify-between gap-6 border-b border-[var(--line)] pb-6">
           <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--fg-muted)]">

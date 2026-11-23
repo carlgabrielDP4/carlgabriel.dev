@@ -13,7 +13,7 @@ export type Project = {
   outcome: { label: string; value: string }[];
   /** Featured projects get the full-size rows in the Work section; the rest go under "Other projects". */
   featured?: boolean;
-  /** Featured projects to emphasise most: larger row and a "Highlight" label. */
+  /** Featured projects to emphasise most: larger row and a "Latest" label. */
   spotlight?: boolean;
   /** Optional external links shown as pills in the case study hero. */
   links?: { label: string; href: string }[];

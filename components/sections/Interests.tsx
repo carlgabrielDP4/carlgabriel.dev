@@ -5,25 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { VISITED_PLACES } from "@/content/visitedCountries";
+import { TRAVEL_IDS, memoryById, type Memory } from "@/content/memories";
+import { memoryStore } from "@/lib/memory-store";
+import { useCursor } from "@/lib/cursor-provider";
+import { MemoryViewer } from "@/components/sections/MemoryViewer";
 
-type TravelClip = {
-  place: string;
-  caption: string;
-  hue: string;
-  image?: string;
-  focus?: { scale?: number; origin?: string };
-};
-
-const travelClips: TravelClip[] = [
-  { place: "Oregon, USA", caption: "international athlete?", hue: "#22c55e", image: "/images/travel/carlKiss_untitled.png" },
-  { place: "Tokyo, JP", caption: "Temple runs", hue: "#a855f7", image: "/images/travel/tokyo-umbrella-pose.png" },
-  { place: "Tokyo, JP", caption: "Mandatory vending flick", hue: "#6366f1", image: "/images/travel/vending-machine.png" },
-  { place: "Oregon, USA", caption: "trailblazer", hue: "#84cc16", image: "/images/travel/carlPDXpoint.png" },
-  { place: "Osaka, JP", caption: "Glico man", hue: "#ec4899", image: "/images/travel/me-and-glicoman.png" },
-  { place: "Osaka, JP", caption: "Night markets", hue: "#f97316", image: "/images/travel/osaka-aurafarm.png" },
-  { place: "Top of Indochina", caption: "Peak entertainment", hue: "#22d3ee", image: "/images/travel/fansipan-summit.png" },
-  { place: "Sa Pa, VN", caption: "Trail stop", hue: "#0ea5e9", image: "/images/travel/waterfall-picture.png" },
-];
+const travelClips: Memory[] = TRAVEL_IDS.map((id) => memoryById(id)!);
 
 type FactTile = {
   k: string;
@@ -50,7 +37,7 @@ export function Interests() {
   );
 
   return (
-    <section id="interests" className="relative px-6 pt-16 pb-12 md:px-10 md:pt-48 md:pb-28">
+    <section id="interests" className="relative px-6 pt-16 pb-12 md:px-10 md:pt-36 md:pb-24">
       <div className="mx-auto max-w-[1400px]">
         <div className="mb-12 flex items-baseline justify-between gap-4 border-b border-[var(--line)] pb-6 md:mb-20 md:gap-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--fg-muted)] md:text-xs md:tracking-[0.25em]">
@@ -75,12 +62,14 @@ export function Interests() {
           text="Where the cursor can't follow."
         />
 
+        <MemoryViewer />
+
         <div ref={ref} className="mt-16">
           <div className="flex flex-col gap-6">
             <div className="relative overflow-hidden">
               <motion.div style={{ x: carouselX }} className="flex gap-4 will-change-transform">
                 {[...travelClips, ...travelClips].map((c, i) => (
-                  <TravelCard key={i} {...c} />
+                  <TravelCard key={i} memory={c} />
                 ))}
               </motion.div>
             </div>
@@ -134,12 +123,22 @@ function useIsMobile() {
   return isMobile;
 }
 
-function TravelCard({ place, caption, hue, image, focus }: TravelClip) {
+function TravelCard({ memory }: { memory: Memory }) {
+  const { id, place, caption, hue, src: image, focus } = memory;
+  const { setVariant, reset } = useCursor();
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      aria-label={`Open memory: ${place} - ${caption}`}
+      onClick={() => {
+        reset();
+        memoryStore.open(id);
+      }}
+      onPointerEnter={() => setVariant("view", "Open")}
+      onPointerLeave={reset}
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: "spring", damping: 20, stiffness: 200 }}
-      className="relative aspect-[9/16] w-[180px] shrink-0 overflow-hidden rounded-md md:w-[220px]"
+      className="relative aspect-[9/16] w-[180px] shrink-0 overflow-hidden rounded-md text-left md:w-[220px]"
       style={{ background: `linear-gradient(160deg, ${hue}, #000)` }}
     >
       {image ? (
@@ -168,6 +167,6 @@ function TravelCard({ place, caption, hue, image, focus }: TravelClip) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }

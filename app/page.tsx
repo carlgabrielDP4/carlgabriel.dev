@@ -10,7 +10,8 @@ const Featured = dynamic(() =>
   import("@/components/sections/Featured").then((m) => m.Featured),
 );
 const Work = dynamic(() => import("@/components/sections/Work").then((m) => m.Work));
-const Skills = dynamic(() => import("@/components/sections/Skills").then((m) => m.Skills));
+// Tools / Services section hidden (experiment: perf + layout without it).
+// const Skills = dynamic(() => import("@/components/sections/Skills").then((m) => m.Skills));
 const Interests = dynamic(() =>
   import("@/components/sections/Interests").then((m) => m.Interests),
 );
@@ -24,7 +25,7 @@ export default function HomePage() {
       <About />
       <Experience />
       <Featured />
-      <Skills />
+      {/* <Skills /> */}
       <Work />
       <Interests />
       <Contact />

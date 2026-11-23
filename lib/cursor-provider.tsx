@@ -2,7 +2,7 @@
 
 import { createContext, useCallback, useContext, useState } from "react";
 
-export type CursorVariant = "default" | "hover" | "text" | "drag" | "view" | "send";
+export type CursorVariant = "default" | "hover" | "text" | "drag" | "view" | "send" | "gone";
 
 type Ctx = {
   variant: CursorVariant;

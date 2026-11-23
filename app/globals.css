@@ -144,6 +144,147 @@ a, button {
   50%      { box-shadow: 0 0 40px 8px rgba(168, 85, 247, 0.15); }
 }
 
+/* ── Hero orbit: polaroids on a tilted 3D ring (compositor-only motion) ── */
+.orbit-slot { container: orbit / size; }
+
+.orbit-stage {
+  --dur: 34s;
+  --tilt: -20deg;
+  --card: clamp(52px, calc((100cqh - 56px) / 3.25), 108px);
+  --r: min(calc(var(--card) * 2.5), calc(50cqw - var(--card) * 0.8));
+  position: relative;
+  width: calc(var(--r) * 2 + var(--card) * 1.5);
+  /* Front cards render ~1.3x (perspective) so the ring sits above centre. */
+  height: calc(var(--card) * 3.2);
+  perspective: 1000px;
+  perspective-origin: 50% 38%;
+}
+
+.orbit-tilt,
+.orbit-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.orbit-tilt { transform: translateY(calc(var(--card) * -0.38)) rotateX(var(--tilt)); }
+.orbit-spin {
+  animation: orbit-spin var(--dur) linear infinite;
+  will-change: transform;
+}
+
+.orbit-card,
+.orbit-face {
+  position: absolute;
+  transform-style: preserve-3d;
+  pointer-events: none; /* flat wrapper planes would steal hits from the tilted polaroid */
+}
+.orbit-card {
+  left: 50%;
+  top: 50%;
+  width: var(--card);
+  height: calc(var(--card) * 1.2);
+  margin-left: calc(var(--card) * -0.5);
+  margin-top: calc(var(--card) * -0.6);
+  transform: rotateY(var(--a)) translateZ(var(--r)) rotateY(calc(var(--a) * -1));
+}
+.orbit-face {
+  inset: 0;
+  animation: orbit-counter var(--dur) linear infinite;
+}
+.orbit-polaroid {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(calc(var(--tilt) * -1)) rotate(var(--rot, 0deg));
+  pointer-events: auto;
+}
+.orbit-inner {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.orbit-inner:hover { transform: scale(1.15); }
+
+.orbit-shade {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: var(--bg);
+  pointer-events: none;
+  opacity: 0;
+  animation: orbit-depth var(--dur) linear infinite;
+  animation-delay: calc(var(--dur) * var(--i) / var(--n) * -1);
+}
+
+.orbit-path {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  margin: calc(var(--r) * -1) 0 0 calc(var(--r) * -1);
+  border: 1px dashed color-mix(in srgb, var(--fg) 22%, transparent);
+  border-radius: 50%;
+  transform: rotateX(90deg);
+}
+
+.orbit-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--card) * 0.9);
+  height: calc(var(--card) * 0.9);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0 9%, rgba(168, 85, 247, 0.35) 12%, transparent 68%);
+  animation: orbit-glow 4.8s ease-in-out infinite;
+}
+
+.orbit-root[data-paused] .orbit-anim,
+.orbit-root[data-paused] .orbit-core,
+.orbit-stage:hover .orbit-anim {
+  animation-play-state: paused;
+}
+
+.orbit-label { transition: opacity 0.2s ease; }
+.orbit-root:has(.orbit-polaroid:hover) .orbit-label { opacity: 0; }
+
+/* Short laptops: drop the label so the ring gets the whole slot. */
+@container orbit (max-height: 240px) {
+  .orbit-label { display: none; }
+  .orbit-stage { --card: clamp(44px, calc(100cqh / 3.25), 108px); }
+}
+@container orbit (max-height: 150px) {
+  .orbit-stage { display: none; }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+@keyframes orbit-counter {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(-360deg); }
+}
+@keyframes orbit-depth {
+  0%, 100% { opacity: 0; }
+  25%, 75% { opacity: 0.28; }
+  50%      { opacity: 0.6; }
+}
+@keyframes orbit-glow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ── Memory viewer strips: split-flap misalignment that snaps flush on hover.
+   `translate` composes with motion's `transform`, so the reveal and the offset don't fight. */
+.mv-slice {
+  translate: 0 var(--off, 0px);
+  clip-path: inset(0 1.5px);
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.mv-slot:hover .mv-slice {
+  translate: 0 0;
+  clip-path: inset(0 0);
+}
+
 .noise-grain {
   position: fixed;
   inset: 0;

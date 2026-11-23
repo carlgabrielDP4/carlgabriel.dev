@@ -2,17 +2,59 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
+// Module state survives client-side navigation but resets on a full page load,
+// so the countdown plays once per document load / refresh.
+let introPlayed = false;
+
+/** True when this mount came from in-app navigation rather than a fresh document load. */
+function shouldSkipIntro(pathname: string) {
+  if (introPlayed) return true;
+  try {
+    // The navigation entry is the URL the document was loaded with; client-side
+    // route changes don't add new ones. Landing elsewhere (e.g. a case study)
+    // and then navigating home should not replay the countdown.
+    const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    if (nav && new URL(nav.name).pathname !== pathname) return true;
+  } catch {}
+  return false;
+}
 
 export function Loader({ onComplete }: { onComplete?: () => void }) {
-  const [count, setCount] = useState(0);
+  // window.location still holds the previous URL while a client navigation renders,
+  // so compare against the route being rendered instead.
+  const pathname = usePathname();
+  // On hydration of a fresh load this is false on both server and client, so no mismatch.
+  const [skip] = useState(() => typeof window !== "undefined" && shouldSkipIntro(pathname));
+  const [count, setCount] = useState(skip ? 100 : 0);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(100);
-      setDone(true);
-      const t = setTimeout(() => onComplete?.(), 200);
-      return () => clearTimeout(t);
+    const complete = () => onComplete?.();
+
+    // In-app return: no countdown, the overlay swipes up straight away
+    // (after one painted frame so the swipe is visible).
+    if (skip) {
+      introPlayed = true;
+      const raf = requestAnimationFrame(() => {
+        setDone(true);
+        complete();
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      introPlayed = true;
+      const raf = requestAnimationFrame(() => {
+        setCount(100);
+        setDone(true);
+      });
+      const t = setTimeout(complete, 200);
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(t);
+      };
     }
 
     const start = performance.now();
@@ -25,13 +67,18 @@ export function Loader({ onComplete }: { onComplete?: () => void }) {
       if (t < 1) {
         raf = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => setDone(true), 120);
-        setTimeout(() => onComplete?.(), 250);
+        introPlayed = true;
+        timers.push(setTimeout(() => setDone(true), 120));
+        timers.push(setTimeout(complete, 250));
       }
     };
+    const timers: ReturnType<typeof setTimeout>[] = [];
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [onComplete]);
+    return () => {
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+    };
+  }, [skip, onComplete]);
 
   return (
     <AnimatePresence>

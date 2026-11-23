@@ -19,7 +19,7 @@ export function Featured() {
   const { setVariant, reset } = useCursor();
 
   return (
-    <section id="featured" className="relative overflow-hidden px-6 py-16 md:px-10 md:py-40">
+    <section id="featured" className="relative overflow-hidden px-6 py-16 md:px-10 md:py-32">
       {/* Soft accent wash behind the post so the section reads as a spotlight, not another timeline row. */}
       <div
         aria-hidden

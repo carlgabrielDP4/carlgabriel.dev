@@ -13,6 +13,11 @@ const ShaderGradient = dynamic(
   { ssr: false }
 );
 
+const HeroOrbit = dynamic(
+  () => import("@/components/sections/HeroOrbit").then((m) => m.HeroOrbit),
+  { ssr: false }
+);
+
 export function Hero() {
   const { setVariant, reset } = useCursor();
   const ref = useRef<HTMLElement>(null);
@@ -47,6 +52,16 @@ export function Hero() {
             </SplitLine>
           </h1>
         </div>
+
+        {/* Desktop: personality orbit fills the band under the name. */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="orbit-slot hidden min-h-0 flex-1 md:my-4 md:block md:max-w-[64%]"
+        >
+          <HeroOrbit />
+        </motion.div>
 
         {/* Mobile portrait takes the center band; desktop portrait is off-right. */}
         <div className="relative flex items-center justify-end md:hidden">

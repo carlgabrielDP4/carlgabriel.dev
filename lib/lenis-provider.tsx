@@ -1,9 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
+import { createContext, useContext, useEffect, useRef, type RefObject } from "react";
 import Lenis from "lenis";
 
+const LenisCtx = createContext<RefObject<Lenis | null>>({ current: null });
+
+/** Ref to the page's Lenis instance (null under reduced motion). Read it in handlers/effects. */
+export const useLenis = () => useContext(LenisCtx);
+
 export function LenisProvider({ children }: { children: React.ReactNode }) {
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -15,6 +22,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       wheelMultiplier: 1,
       touchMultiplier: 1.5,
     });
+    lenisRef.current = lenis;
 
     let rafId = 0;
     function raf(time: number) {
@@ -26,8 +34,9 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  return <>{children}</>;
+  return <LenisCtx.Provider value={lenisRef}>{children}</LenisCtx.Provider>;
 }

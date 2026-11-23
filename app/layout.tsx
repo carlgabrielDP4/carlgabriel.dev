@@ -30,12 +30,12 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Carl Dela Pena - Designer who codes",
+  title: "Carl Dela Pena",
   description:
     "UI/UX designer and frontend engineer. CS + IT student at the University of Auckland, graduating end of 2026. Motion-led product design, design systems, and front-end work. Based in Auckland, NZ.",
   metadataBase: new URL("https://carl-final-portfolio.vercel.app"),
   openGraph: {
-    title: "Carl Dela Pena - Designer who codes",
+    title: "Carl Dela Pena",
     description: "Motion-led product design and front-end engineering from Auckland.",
     type: "website",
     images: [
